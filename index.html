@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Portafolio</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+</head>
+<body>
+    <canvas id="metaball-cursor"></canvas> <!-- El canvas donde se dibuja el metaball -->
+
+
+  <section id="intro-video">
+    <video autoplay muted loop playsinline>
+      <source src="/media/Showreel2.mp4" type="video/mp4" />
+      Tu navegador no soporta la etiqueta de video.
+    </video>
+    
+
+    <!-- Overlay -->
+    <div class="video-overlay"></div>
+
+    <!-- Texto encima -->
+    <header>
+      <h1> <span style="color: #ccff00;"> 3D </span>Generalist // Graphic <span style="color: #ccff00;">designer</span></h1>
+    </header>
+  </section>
+
+  
+
+  <section id="proyectos">
+    <div class="project-banner banner1">
+      <div class="overlay">
+        <div class="project-content">
+          <h3>Hard Surface</h3>
+          <p>Ejercicios de modelado de hard surface props.</p>
+          <a href="#">Ver más →</a>
+        </div>
+      </div>
+    </div>
+  
+    <div class="project-banner banner2">
+      <div class="overlay">
+        <div class="project-content">
+          <h3>Estudios del corazón</h3>
+          <p>Investigación sobre la forma del corazón y look development.</p>
+          <a href="#">Ver más →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-banner banner3">
+        <div class="overlay">
+          <div class="project-content">
+            <h3>Character Design</h3>
+            <p>Modelado orgánico.</p>
+            <a href="#">Ver más →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-banner banner4">
+        
+        <div class="overlay">
+            
+          <div class="project-content">
+            <h3>Animaciones</h3>
+            <p>Exploración de físicas y keyframes </p>
+            <a href="#">Ver más →</a>
+          </div>
+        </div>
+      </div>
+  </section>
+
+
+
+
+
+  <section id="sobre-mi">
+    
+    <br>
+    <br>
+    <br>
+    <p>Aquí puedes escribir una breve biografía tuya, tus intereses y habilidades.</p>
+  </section>
+  <nav class="main-nav">
+    <div class="logo"> <h2>LuisFer.</div></h2>
+    <ul class="nav-links">
+     <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#sobre-mi">Sobre mí</a></li>
+      <li><a href="#contacto" class="cta">Contáctame →</a></li>
+    </ul>
+  </nav>
+  
+  
+
+  <section id="contacto">
+    <h2>Contacto</h2>
+    <p>Email: tuemail@ejemplo.com</p>
+    <p>Redes:</p>
+    <ul>
+      <li><a href="https://github.com/tuusuario" target="_blank">ArtStation</a></li>
+      <li><a href="https://linkedin.com/in/tuusuario" target="_blank">LinkedIn</a></li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Luis Fernando Martínez</p>
+  </footer>
+  <div class="scroll-balls">
+    <a href="#intro-video" class="ball" data-section="intro-video"></a>
+    <a href="#proyectos" class="ball" data-section="proyectos"></a>
+    <a href="#contacto" class="ball" data-section="contacto"></a>
+    
+  </div>
+  
+
+  
+  <script src="js/java.js"></script>
+</body>
+</html>
