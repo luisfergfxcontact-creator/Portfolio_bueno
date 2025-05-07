@@ -173,24 +173,53 @@ function animate() {
 
 animate();
 
-window.addEventListener("load", () => {
-  const loader = document.getElementById("loader");
+document.addEventListener("DOMContentLoaded", () => {
   const progressBar = document.querySelector(".progress-bar");
+  const loader = document.getElementById("loader");
+  const loaderText = document.querySelector(".loader-text");
 
-  // Simulación de carga, por ejemplo, se llena en 3 segundos
+  
+  // Paso 1: Activar transición de la barra de carga al 100%
   setTimeout(() => {
-      progressBar.style.width = "100%"; // Llenar la barra al 100%
-  }, 500); // 0.5 segundos de retraso para dar tiempo a la animación de entrada
+    progressBar.style.width = "100%";
+  }, 500);
 
+  // Paso 2: Detectar el fin de la transición
+  const onTransitionEnd = () => {
+    loaderText.textContent = "Done!:)";
+    loaderText.classList.add("done-animate");
+
+    // Forzar reflow y activar "show" para animación
+    requestAnimationFrame(() => {
+      loaderText.classList.add("show");
+    });
+
+    // Paso 3: Esperar un poco y luego revelar la carita
+    setTimeout(() => {
+      // Agregar la animación de la carita
+      caraContainer.style.opacity = 1; // Hacer visible el contenedor de la carita
+      caraContainer.classList.add("zoomIn"); // Agregar clase para animar la carita
+    }, 100); // Espera de 500ms después de mostrar "done"
+
+    // Eliminar el loader después de la animación
+    loader.removeEventListener("transitionend", onTransitionEnd);
+  };
+
+  // Añadir el evento para detectar el fin de la transición de la barra de carga
+  progressBar.addEventListener("transitionend", onTransitionEnd);
+
+  // Paso 4: Esconder el loader después de un tiempo
   setTimeout(() => {
-      loader.classList.add("loader--hide");
+    loader.classList.add("loader--hide");
+    loader.addEventListener("animationend", () => {
+      loader.remove();
+    });
+  }, 3050);
+  
 
-      // Aquí añadimos el efecto de zoom-out al contenido de la página
-      document.body.classList.add("zoom-out");
 
-      // Elimina el loader completamente del DOM después de la animación
-      loader.addEventListener("animationend", () => {
-          loader.remove();
-      });
-  }, 3200); // Tiempo visible (por ejemplo, 3.2s en total, para que coincida con la duración de la animación de la barra)
+
+
+
+  
 });

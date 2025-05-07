@@ -14,7 +14,7 @@
     color: aliceblue;
   }
   body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #000000;
 cursor: none;
   }
@@ -26,44 +26,85 @@ cursor: none;
 
 /* Barra de carga */
 .progress-bar-background {
-  width: 100%;
-  height: 20px; /* Altura de la barra */
-  background-color: black; /* Fondo negro */
-  border-radius: 10px; /* Bordes redondeados */
-  margin-top: 10px; /* Espacio entre el texto y la barra */
+  width: 80%;
+  background-color: #000000;
+  height: 10px;
+  border-radius: 5px;
+  margin-top: 20px;
   overflow: hidden;
 }
 
 .progress-bar {
-  height: 100%;
-  width: 0%; /* Inicialmente está vacía */
-  background-color: #ccff00; /* Color complementario al amarillo (morado) */
-  border-radius: 5px;
-  animation: progress 2s linear forwards; /* Animación para llenar la barra */
+  width: 0%;
+  height: 100vh;
+  background-color: #ccff00;
+  transition: width 2s ease; /* Necesario para que 'transitionend' funcione */
 }
+
+.done-animate {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.done-animate.show {
+  opacity: 1;
+  transform: translateY(30px);
+}
+
 
 /* Animación de la barra de carga */
-@keyframes progress {
+@keyframes progress-bar {
   0% {
-      width: 0%;
+    width: 0;
   }
   100% {
-      width: 100%; /* Al final, la barra se llena completamente */
+    width: 100%;
   }
 }
 
+/* Animación de zoom in */
+@keyframes zoomIn {
+  0% {
+    transform: scale(0.5); /* Comienza más pequeña */
+    opacity: 0; /* Empieza invisible */
+  }
+  100% {
+    transform: scale(1); /* Escala normal */
+    opacity: 1; /* Totalmente visible */
+  }
+}
+
+#cara-container {
+display: flex;
+align-items: center;
+  transform: translateX(-50%);
+  opacity: 1;
+  pointer-events: none; /* Para que no interfiera con otros elementos */
+}
+
+#cara {
+  width: 150px; /* Tamaño de la carita */
+  height: auto;
+  transform: scale(0);
+  transition: transform 0.5s ease, opacity 0.5s ease; /* Efecto de zoom y opacidad */
+}
+
+.zoomIn {
+  opacity: 1;
+  transform: scale(1.2); /* Cambia el valor de escala según el tamaño deseado */
+}
 
   
 /* Pantalla de carga */
 #loader {
   position: fixed;
   inset: 0;
-  background-color: #ccff00; /* color de marca */
+  background-color: #ccff00;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 99999;
-  
 }
 
 /* Texto o logo en el centro */
@@ -163,14 +204,10 @@ a:hover, button:hover, .clickable:hover {
     font-family: "Cal Sans", sans-serif;
     font-size: 10rem;
     font-weight: bold;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 999px;
     padding: 1.5rem 0;
     white-space: nowrap;
     opacity: 0.3;
-    text-shadow: 0 0 40px rgb(0, 0, 0);
+    text-shadow: 20 20 20px rgb(0, 0, 0);
   }
   
   .marquee__inner {
