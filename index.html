@@ -10,6 +10,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
 </head>
 <body>
+  
+
+  <div id="loader">
+    <div class="loader-content">
+        <h1 class="loader-text">Loading...</h1>
+        <!-- Barra de carga -->
+        <div class="progress-bar-background">
+            <div class="progress-bar"></div>
+        </div>
+    </div>
+</div>
+
+
     <canvas id="metaball-cursor"></canvas> <!-- El canvas donde se dibuja el metaball -->
 
 
@@ -24,19 +37,55 @@
     <div class="video-overlay"></div>
 
     <!-- Texto encima -->
-    <header>
-      <h1> <span style="color: #ccff00;"> 3D </span>Generalist // Graphic <span style="color: #ccff00;">designer</span></h1>
+    <header class="marquee">
+      <div class="marquee__inner">
+        <!-- Un bloque repetido -->
+        <div class="marquee__block">
+          <span><span class="highlight">3D</span> Generalist</span>
+          <span class="dot">·</span>
+          <span>Graphic <span class="highlight">designer</span></span>
+          <span class="dot">·</span>
+        </div>
+        <div class="marquee__block">
+          <span><span class="highlight">3D</span> Generalist</span>
+          <span class="dot">·</span>
+          <span>Graphic <span class="highlight">designer</span></span>
+          <span class="dot">·</span>
+        </div>
+        <div class="marquee__block">
+          <span><span class="highlight">3D</span> Generalist</span>
+          <span class="dot">·</span>
+          <span>Graphic <span class="highlight">designer</span></span>
+          <span class="dot">·</span>
+        </div>
+        <div class="marquee__block">
+          <span><span class="highlight">3D</span> Generalist</span>
+          <span class="dot">·</span>
+          <span>Graphic <span class="highlight">designer</span></span>
+          <span class="dot">·</span>
+        </div>
+      </div>
     </header>
+    
+    
+    
+    
+    
+    
+    
+    
+    
   </section>
 
   
 
   <section id="proyectos">
+    
     <div class="project-banner banner1">
       <div class="overlay">
         <div class="project-content">
           <h3>Hard Surface</h3>
-          <p>Ejercicios de modelado de hard surface props.</p>
+          <p>Modelado de hard surface props.</p>
           <a href="#">Ver más →</a>
         </div>
       </div>
@@ -68,6 +117,17 @@
             
           <div class="project-content">
             <h3>Animaciones</h3>
+            <p>Exploración de físicas y keyframes </p>
+            <a href="#">Ver más →</a>
+          </div>
+        </div>
+      </div>
+      <div class="project-banner banner4">
+        
+        <div class="overlay">
+            
+          <div class="project-content">
+            <h3>TFG</h3>
             <p>Exploración de físicas y keyframes </p>
             <a href="#">Ver más →</a>
           </div>
@@ -110,15 +170,18 @@
   <footer>
     <p>&copy; 2025 Luis Fernando Martínez</p>
   </footer>
-  <div class="scroll-balls">
-    <a href="#intro-video" class="ball" data-section="intro-video"></a>
-    <a href="#proyectos" class="ball" data-section="proyectos"></a>
-    <a href="#contacto" class="ball" data-section="contacto"></a>
-    
+  <div class="scroll-balls-container">
+    <div class="scroll-balls">
+      <a href="#intro-video" class="ball" data-section="intro-video"></a>
+      <a href="#proyectos" class="ball" data-section="proyectos"></a>
+      <a href="#contacto" class="ball" data-section="contacto"></a>
+    </div>
   </div>
-  
+ 
 
   
+  
   <script src="js/java.js"></script>
+  
 </body>
 </html>

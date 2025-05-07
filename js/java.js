@@ -172,3 +172,25 @@ function animate() {
 }
 
 animate();
+
+window.addEventListener("load", () => {
+  const loader = document.getElementById("loader");
+  const progressBar = document.querySelector(".progress-bar");
+
+  // Simulación de carga, por ejemplo, se llena en 3 segundos
+  setTimeout(() => {
+      progressBar.style.width = "100%"; // Llenar la barra al 100%
+  }, 500); // 0.5 segundos de retraso para dar tiempo a la animación de entrada
+
+  setTimeout(() => {
+      loader.classList.add("loader--hide");
+
+      // Aquí añadimos el efecto de zoom-out al contenido de la página
+      document.body.classList.add("zoom-out");
+
+      // Elimina el loader completamente del DOM después de la animación
+      loader.addEventListener("animationend", () => {
+          loader.remove();
+      });
+  }, 3200); // Tiempo visible (por ejemplo, 3.2s en total, para que coincida con la duración de la animación de la barra)
+});
