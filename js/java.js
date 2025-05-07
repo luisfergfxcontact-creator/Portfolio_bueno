@@ -186,7 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Paso 2: Detectar el fin de la transición
   const onTransitionEnd = () => {
-    loaderText.textContent = "Done!:)";
+    loaderText.textContent = "Done! :)";
     loaderText.classList.add("done-animate");
 
     // Forzar reflow y activar "show" para animación

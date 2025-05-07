@@ -17,10 +17,24 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #000000;
 cursor: none;
+overflow-y: scroll; /* Siempre permite el desplazamiento vertical */
+scrollbar-width: none;  /* Para Firefox */
+
   }
+  body::-webkit-scrollbar {
+    display: none; /* Para Chrome, Safari, y Edge */
+  }
+
   span{
     color: rgb(158, 158, 158);
   }
+  :root {
+    /* Establece el comportamiento global para ocultar los scrollbars */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+  }
+  
+
 
   /*LOAD SCREEN */
 
