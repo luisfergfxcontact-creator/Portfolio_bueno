@@ -402,6 +402,9 @@ button:hover,
   font-weight: 500;
   transition: color 0.3s;
 }
+.next{
+  overflow-y: hidden;
+}
 
 .nav-links a:hover {
   color: #ccff00;

@@ -630,6 +630,12 @@ button:hover,
   z-index: 3;
   pointer-events: none;
 }
+.no-deform {
+  transform: none !important;
+  /* Opcional: para evitar que herede transformaciones 3D */
+  transform-style: flat !important;
+}
+
 
 .carousel-nav button {
   pointer-events: all;
@@ -644,6 +650,7 @@ button:hover,
   height: 4.5rem; /* alto fijo para botón */
   animation: bounce-horizontal 1.5s infinite ease-in-out;
   transition: transform 0.2s ease;
+  overflow-y: hidden;
 }
 .carousel-nav button.prev {
   animation: bounce-left 1.5s infinite ease-in-out;
