@@ -1,21 +1,27 @@
 console.log("Portafolio cargado correctamente");
 
 document.addEventListener("DOMContentLoaded", () => {
+  // ---------------------------
+  // Scroll balls navigation
+  // ---------------------------
   const balls = document.querySelectorAll(".scroll-balls .ball[data-section]");
   let isManualScroll = false;
 
   function updateActiveBall() {
     if (isManualScroll) return;
-    
+
     const scrollY = window.scrollY + window.innerHeight / 2;
     let activeId = null;
 
     balls.forEach(ball => {
       const section = document.getElementById(ball.dataset.section);
       if (!section) return;
-      
-      const { top, bottom } = section.getBoundingClientRect();
-      if (scrollY >= top + window.scrollY && scrollY < bottom + window.scrollY) {
+
+      const rect = section.getBoundingClientRect();
+      const top = rect.top + window.scrollY;
+      const bottom = rect.bottom + window.scrollY;
+
+      if (scrollY >= top && scrollY < bottom) {
         activeId = ball.dataset.section;
       }
     });
@@ -26,19 +32,19 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   balls.forEach(ball => {
-    ball.addEventListener("click", function(e) {
+    ball.addEventListener("click", e => {
       e.preventDefault();
       isManualScroll = true;
 
-      const section = document.getElementById(this.dataset.section);
+      const section = document.getElementById(ball.dataset.section);
       if (section) {
-        section.scrollIntoView({ 
+        section.scrollIntoView({
           behavior: "smooth",
           block: "center"
         });
 
         balls.forEach(b => b.classList.remove("active"));
-        this.classList.add("active");
+        ball.classList.add("active");
 
         setTimeout(() => {
           isManualScroll = false;
@@ -49,177 +55,257 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.addEventListener("scroll", updateActiveBall);
   updateActiveBall();
-});
 
+  // ---------------------------
+  // Cursor Metaball
+  // ---------------------------
+  const canvas = document.getElementById("metaball-cursor");
+  if (canvas) {
+    const ctx = canvas.getContext("2d");
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
 
+    window.addEventListener("resize", () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    });
 
-// ---------------------------
-// Metaball Cursor Animación
-// ---------------------------
-const canvas = document.getElementById("metaball-cursor");
-const ctx = canvas.getContext("2d");
+    let mouse = { x: width / 2, y: height / 2, speedX: 0, speedY: 0 };
+    let target = { x: mouse.x, y: mouse.y };
+    let lastMouse = { x: mouse.x, y: mouse.y };
+    let ballSize = 15;
+    let targetBallSize = ballSize;
+    const ballSizeSpeed = 0.1;
+    const metaballColor = "#ccff00";
+    let isHoveringInteractiveElement = false;
 
-let width = window.innerWidth;
-let height = window.innerHeight;
-canvas.width = width;
-canvas.height = height;
+    document.querySelectorAll("a, button, .clickable, .carousel-indicators .indicator").forEach(element => {
+      element.addEventListener("mouseenter", () => isHoveringInteractiveElement = true);
+      element.addEventListener("mouseleave", () => isHoveringInteractiveElement = false);
+    });
 
-window.addEventListener("resize", () => {
-  width = window.innerWidth;
-  height = window.innerHeight;
-  canvas.width = width;
-  canvas.height = height;
-});
+    document.addEventListener("mousemove", (e) => {
+      target.x = e.clientX;
+      target.y = e.clientY;
+    });
 
-// Datos del cursor
-let mouse = { x: width / 2, y: height / 2, speedX: 0, speedY: 0 };
-let target = { x: mouse.x, y: mouse.y }; // Para efecto de suavizado
-let lastMouse = { x: mouse.x, y: mouse.y };
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      mouse.x += (target.x - mouse.x) * 0.2;
+      mouse.y += (target.y - mouse.y) * 0.2;
 
-// Tamaño de la bola (metaball)
-let ballSize = 15; // Tamaño inicial de la bola
-let targetBallSize = ballSize; // Tamaño objetivo de la bola
-let ballSizeSpeed = 0.1; // Velocidad de transición
-let metaballColor = "#ccff00"; // Color inicial de la bola
+      mouse.speedX = mouse.x - lastMouse.x;
+      mouse.speedY = mouse.y - lastMouse.y;
 
-// Variable para controlar el estado de interacción con elementos
-let isHoveringInteractiveElement = false;
+      const multiplier = 1.8;
+      const maxStretch = 30;
+      const stretchX = Math.min(Math.abs(mouse.speedX) * multiplier, maxStretch);
+      const stretchY = Math.min(Math.abs(mouse.speedY) * multiplier, maxStretch);
 
-// Detectar cuando el cursor pasa sobre un elemento interactivo
-document.querySelectorAll("a, button, .clickable").forEach(element => {
-  element.addEventListener("mouseenter", () => {
-    console.log("Cursor sobre un elemento interactivo");
-    isHoveringInteractiveElement = true;
-  });
+      targetBallSize = isHoveringInteractiveElement ? Math.min(50, 35 + (stretchX + stretchY) / 3) : 15;
+      ballSize += (targetBallSize - ballSize) * ballSizeSpeed;
 
-  element.addEventListener("mouseleave", () => {
-    console.log("Cursor fuera de un elemento interactivo");
-    isHoveringInteractiveElement = false;
-  });
-});
+      ctx.save();
+      ctx.translate(mouse.x, mouse.y);
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = metaballColor;
+      ctx.beginPath();
+      ctx.arc(0, 0, ballSize, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
 
-// Eventos del mouse
-document.addEventListener("mousemove", (e) => {
-  target.x = e.clientX;
-  target.y = e.clientY;
-});
+      ctx.save();
+      ctx.translate(mouse.x, mouse.y);
+      ctx.scale(1 + stretchX / 20, 1 + stretchY / 20);
+      ctx.beginPath();
+      ctx.arc(0, 0, ballSize, 0, Math.PI * 2);
+      ctx.fillStyle = metaballColor;
+      ctx.fill();
+      ctx.restore();
 
-function animate() {
-  ctx.clearRect(0, 0, width, height);
-
-  // Suavizado del movimiento del mouse (efecto goma)
-  mouse.x += (target.x - mouse.x) * 0.2;
-  mouse.y += (target.y - mouse.y) * 0.2;
-
-  mouse.speedX = mouse.x - lastMouse.x;
-  mouse.speedY = mouse.y - lastMouse.y;
-
-  const multiplier = 1.8; // Ajustamos la sensibilidad para que no se deforme mucho
-  const maxStretch = 30;  // Límite de deformación para evitar que se haga demasiado grande
-
-  // Calculamos la deformación (stretch) basados en la velocidad
-  const stretchX = Math.min(Math.abs(mouse.speedX) * multiplier, maxStretch);
-  const stretchY = Math.min(Math.abs(mouse.speedY) * multiplier, maxStretch);
-
-  // Si el cursor está sobre un elemento interactivo, aumentamos su tamaño
-  if (isHoveringInteractiveElement) {
-    targetBallSize = Math.min(50, 35 + (stretchX + stretchY) / 3); // Aumenta el tamaño hasta un límite máximo
-  } else {
-    targetBallSize = 15;  // Tamaño normal cuando no está sobre un elemento interactivo
+      lastMouse.x = mouse.x;
+      lastMouse.y = mouse.y;
+      requestAnimationFrame(animate);
+    }
+    animate();
   }
 
-  // Interpolación para suavizar el cambio de tamaño de la bola
-  ballSize += (targetBallSize - ballSize) * ballSizeSpeed;
-
-  // Primero, dibujamos el contorno del metaball sin filtro (sin desenfoque)
-  ctx.save();
-  ctx.translate(mouse.x, mouse.y);
-  
-  // Configuración del contorno
-  ctx.lineWidth = 3; // Grosor del contorno
-  ctx.strokeStyle = metaballColor; // Color del contorno
-  ctx.beginPath();
-  ctx.arc(0, 0, ballSize, 0, Math.PI * 2);
-  ctx.stroke(); // Dibujar solo el contorno
-  ctx.restore();
-
-  // Luego, dibujamos el relleno con un efecto de cristal difuso
-  ctx.save();
-  ctx.translate(mouse.x, mouse.y);
-
-  // Efecto de deformación más líquida utilizando "scale" y fuerza de atracción
-  const scaleX = 1 + stretchX / 20;
-  const scaleY = 1 + stretchY / 20;
-
-  ctx.scale(scaleX, scaleY);
-
-  // Efecto de fondo difuso similar a un cristal
-  ctx.beginPath();
-  ctx.arc(0, 0, ballSize, 0, Math.PI * 2);
-  ctx.fillStyle = metaballColor;
-  ctx.fill();
-
-  // Aquí aplicamos un "backdrop-filter" de blur
-  ctx.filter = 'blur(8px)'; // Simula el difuso dentro del metaball
-  ctx.fill(); // Aplica el filtro dentro de la forma
-
-  ctx.restore();
-
-  lastMouse.x = mouse.x;
-  lastMouse.y = mouse.y;
-
-  requestAnimationFrame(animate);
-}
-
-animate();
-
-document.addEventListener("DOMContentLoaded", () => {
+  // ---------------------------
+  // Loader barra de progreso
+  // ---------------------------
   const progressBar = document.querySelector(".progress-bar");
   const loader = document.getElementById("loader");
   const loaderText = document.querySelector(".loader-text");
+  const caraContainer = document.getElementById("cara-container");
 
-  
-  // Paso 1: Activar transición de la barra de carga al 100%
-  setTimeout(() => {
-    progressBar.style.width = "100%";
-  }, 500);
-
-  // Paso 2: Detectar el fin de la transición
-  const onTransitionEnd = () => {
-    loaderText.textContent = "Done! :)";
-    loaderText.classList.add("done-animate");
-
-    // Forzar reflow y activar "show" para animación
-    requestAnimationFrame(() => {
-      loaderText.classList.add("show");
-    });
-
-    // Paso 3: Esperar un poco y luego revelar la carita
+  if (progressBar) {
     setTimeout(() => {
-      // Agregar la animación de la carita
-      caraContainer.style.opacity = 1; // Hacer visible el contenedor de la carita
-      caraContainer.classList.add("zoomIn"); // Agregar clase para animar la carita
-    }, 100); // Espera de 500ms después de mostrar "done"
+      progressBar.style.width = "100%";
+    }, 500);
 
-    // Eliminar el loader después de la animación
-    loader.removeEventListener("transitionend", onTransitionEnd);
-  };
+    progressBar.addEventListener("transitionend", () => {
+      if (loaderText) {
+        loaderText.textContent = "Done! :)";
+        loaderText.classList.add("done-animate");
 
-  // Añadir el evento para detectar el fin de la transición de la barra de carga
-  progressBar.addEventListener("transitionend", onTransitionEnd);
+        requestAnimationFrame(() => {
+          loaderText.classList.add("show");
+        });
 
-  // Paso 4: Esconder el loader después de un tiempo
-  setTimeout(() => {
-    loader.classList.add("loader--hide");
-    loader.addEventListener("animationend", () => {
-      loader.remove();
+        setTimeout(() => {
+          if (caraContainer) {
+            caraContainer.style.opacity = 1;
+            caraContainer.classList.add("zoomIn");
+          }
+        }, 100);
+      }
     });
-  }, 3050);
-  
+  }
 
+  if (loader) {
+    setTimeout(() => {
+      loader.classList.add("loader--hide");
+      loader.addEventListener("animationend", () => {
+        loader.remove();
+      });
+    }, 3050);
+  }
 
+  // --- Carrusel especial proyectos-carousel ---
+  // Sin autoplay
+  (() => {
+    const container = document.getElementById('proyectos-carousel');
+    if (!container) return;
 
+    const slides = container.querySelectorAll('.carousel-slide');
+    const indicators = container.querySelectorAll('.carousel-indicators .indicator');
+    const nextBtn = container.querySelector('.carousel-nav .next');
+    const prevBtn = container.querySelector('.carousel-nav .prev');
+    let currentIndex = 0;
 
+    function updateCarousel(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+      indicators.forEach((indicator, i) => {
+        indicator.classList.toggle('active', i === index);
+      });
+      currentIndex = index;
+    }
 
-  
+    indicators.forEach((indicator, i) => {
+      indicator.addEventListener('click', () => updateCarousel(i));
+    });
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        updateCarousel((currentIndex + 1) % slides.length);
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        updateCarousel((currentIndex - 1 + slides.length) % slides.length);
+      });
+    }
+
+    updateCarousel(0);
+  })();
+
+  // --- Carruseles múltiples e independientes con clase .carrusel ---
+  // Con autoplay, con pausa y efecto agrandar en hover, excepto el metaball
+  document.querySelectorAll('.carrusel').forEach(carrusel => {
+    // Excluir el metaball especial
+    if (carrusel.id === 'proyectos-carousel') return;
+
+    const slides = carrusel.querySelectorAll('.carousel-slide');
+    const indicators = carrusel.querySelectorAll('.carousel-indicators .indicator');
+    let currentIndex = 0;
+    const autoplayDelay = 3000; // 3 segundos
+    let autoplayInterval;
+
+    function updateCarousel(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+        if (i === index) {
+          slide.style.transform = "scale(1.05)";
+          slide.style.transition = "transform 0.5s ease";
+        } else {
+          slide.style.transform = "scale(1)";
+          slide.style.transition = "transform 0.5s ease";
+        }
+      });
+      indicators.forEach((indicator, i) => {
+        indicator.classList.toggle('active', i === index);
+      });
+      currentIndex = index;
+    }
+
+    indicators.forEach((indicator, i) => {
+      indicator.addEventListener('click', () => updateCarousel(i));
+    });
+
+    updateCarousel(0);
+
+    function startAutoplay() {
+      autoplayInterval = setInterval(() => {
+        updateCarousel((currentIndex + 1) % slides.length);
+      }, autoplayDelay);
+    }
+
+    function stopAutoplay() {
+      clearInterval(autoplayInterval);
+    }
+
+    carrusel.addEventListener('mouseenter', () => {
+      stopAutoplay();
+      slides[currentIndex].style.transform = "scale(1.1)";
+    });
+
+    carrusel.addEventListener('mouseleave', () => {
+      slides[currentIndex].style.transform = "scale(1.05)";
+      startAutoplay();
+    });
+
+    startAutoplay();
+  });
+
+  // ---------------------------
+  // Metaball deformador de carrusel
+  // ---------------------------
+  const deformTarget = document.querySelector(".metaball-deform");
+
+  document.addEventListener("mousemove", (e) => {
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+    const offsetX = (e.clientX - centerX) / 30;
+    const offsetY = (e.clientY - centerY) / 30;
+
+    if (deformTarget) {
+      deformTarget.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(1.05, 0.95)`;
+    }
+  });
+
+  document.addEventListener("mouseleave", () => {
+    if (deformTarget) deformTarget.style.transform = "";
+  });
+
+  // ---------------------------
+  // Navegación interna suave
+  // ---------------------------
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", function (e) {
+      const targetId = this.getAttribute("href").substring(1);
+      const target = document.getElementById(targetId);
+
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  });
 });

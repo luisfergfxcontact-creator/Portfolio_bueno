@@ -15,6 +15,12 @@ a {
   font-family: "Cal Sans", sans-serif;
   font-weight: 650;
   color: aliceblue;
+
+}
+
+h1 {
+  font-size: 3em;
+  overflow: hidden;
 }
 
 body {
@@ -223,9 +229,11 @@ span {
   left: 0;
   pointer-events: none;
   z-index: 9999;
+  pointer-events: none;
 
 
 }
+
 
 /* Aplicamos el desenfoque en el metaball cuando está sobre un elemento interactivo */
 #metaball-cursor:hover {
@@ -270,7 +278,7 @@ button:hover,
   /* Espacio interno entre partes de la frase */
   margin-right: 3rem;
   /* Espaciado entre bloques de la frase */
- 
+
 }
 
 .highlight {
@@ -305,9 +313,7 @@ button:hover,
   overflow: hidden;
 }
 
-h1 {
-  font-size: 2.3em;
-}
+
 
 #intro-video video {
   position: absolute;
@@ -488,124 +494,276 @@ h1 {
   background: #ccff00;
 }
 
-#proyectos {
-  height: 120vh;
-  overflow: hidden;
-
-}
 
 
-.project-banner {
+
+
+#proyectos-carousel {
+  position: relative;
   width: 100vw;
   height: 100vh;
-  background-size: cover;
-  background-position: center;
-  position: relative;
   overflow: hidden;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5em;
 }
 
-/* Degradados superior e inferior */
-.project-banner::before,
-.project-banner::after {
-  content: "";
-  position: absolute;
-  left: 0;
+
+.metaball-wrapper {
+  position: relative;
+  width: 800px;
+  height: 800px;
+  padding: 5em;
+  /* ⬅️ espacio interno invisible */
+  box-sizing: border-box;
+  /* ⬅️ muy importante para mantener tamaño */
+  z-index: 2;
+}
+
+.metaball-float {
   width: 100%;
-  height: 100px;
-  z-index: 1;
+  height: 100%;
+  border-radius: 50%;
+  background: #ccff0000;
+  overflow: hidden;
+  animation: float 4s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: blur(0.5px);
+  transition: all 0.3s ease;
+  transition: transform 0.2s ease-out;
+}
+
+.metaball-mask {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  mask-image: radial-gradient(circle, white 100%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle, white 100%, transparent 100%);
+}
+
+.carousel-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+
+
+.carousel-slide.active {
+  opacity: 1;
+  z-index: 5;
+}
+
+.slide1 {
+  background-image: url('/media/hidroavion_animacion_10001.png');
+}
+
+.slide2 {
+  background-image: url('/media/borrador..jpg');
+}
+
+.slide3 {
+  background-image: url('/media/dino_00000.png');
+}
+
+.slide4 {
+  background-image: url('/media/animaciones.png');
+}
+
+.slide5 {
+  background-image: url('/media/tfg.png');
+}
+
+.content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  text-align: center;
+  padding: 1rem;
+}
+
+.metaball-float:hover .carousel-slide.active .content {
+  opacity: 1;
+}
+
+.content h3 {
+  font-size: 1.5rem;
+  color: #ccff00;
+}
+
+
+.content a {
+  margin-top: 1rem;
+  color: #ccff00;
+  text-decoration: none;
+  font-weight: bold;
+  pointer-events: auto;
+}
+
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  transform: translateY(-50%);
+  z-index: 3;
   pointer-events: none;
 }
 
-
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  opacity: 0;
+.carousel-nav button {
+  pointer-events: all;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  border-radius: 2em; /* esquinas redondeadas */
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.5s ease;
+  cursor: pointer;
+  width: 4.5rem;  /* ancho fijo para botón */
+  height: 4.5rem; /* alto fijo para botón */
+  animation: bounce-horizontal 1.5s infinite ease-in-out;
+  transition: transform 0.2s ease;
+}
+.carousel-nav button.prev {
+  animation: bounce-left 1.5s infinite ease-in-out;
+}
+
+.carousel-nav button.next {
+  animation: bounce-right 1.5s infinite ease-in-out;
+}
+@keyframes bounce-right {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(8px); }
+}
+
+@keyframes bounce-left {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-8px); }
+}
+
+.button.next{
   overflow-y: hidden;
 }
-
-.project-banner:hover .overlay {
-  opacity: 1;
+.carousel-nav button img {
+  width: 5em;  /* tamaño svg */
+  height: 5em;
+  user-select: none;
+  pointer-events: none; /* que el clic no afecte al img */
+ 
 }
 
-.project-content {
-  text-align: center;
-  max-width: 600px;
-  padding: 2rem;
-  color: white;
-  transform: translateY(20px);
-  opacity: 0;
-  transition: all 0.5s ease;
+.carousel-nav button .icon {
+  display: inline-flex;
+  transition: transform 0.2s ease;
 }
 
-.project-banner:hover .project-content {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.project-content h3 {
-  font-size: 2.2rem;
-  color: #ccff00;
-  margin-bottom: 1rem;
-}
-
-.project-content p {
-  font-size: 1.2rem;
-  margin-bottom: 1.5rem;
-}
-
-.project-content a {
-  font-weight: bold;
-  color: #ccff00;
-  text-decoration: none;
-  border-bottom: 2px solid transparent;
-  transition: border-color 0.3s;
-}
-
-.project-content a:hover {
-  border-color: #ccff00;
-}
-
-.banner1 {
-  background-image: url(/media/hidroavion_animacion_10001.png);
-}
-
-.banner2 {
-  background-image: url(/media/borrador..jpg);
-}
-
-.banner3 {
-  background-image: url(/media/dino_00000.png);
+.carousel-nav button:hover .icon {
+  transform: scale(1.2);
 }
 
 
-.overlay {
-  position: absolute;
-  inset: 0;
-  backdrop-filter: blur(5px);
-  /* Aplica desenfoque */
-  -webkit-backdrop-filter: blur(10px);
-  /* Safari */
-  background: rgba(0, 0, 0, 0.3);
-  /* Ligera oscuridad */
-  opacity: 1;
+/* Opcional: para rotar la flecha en el botón "prev" */
+.carousel-nav button.prev img {
+  transform: rotate(180deg);
+}
+
+
+@keyframes float {
+  0% {
+    transform: translateY(0) scale(1, 1);
+  }
+
+  25% {
+    transform: translateY(-15px) scale(1.05, 0.95);
+  }
+
+  50% {
+    transform: translateY(0px) scale(0.97, 1.03);
+  }
+
+  75% {
+    transform: translateY(15px) scale(1.03, 0.97);
+  }
+
+  100% {
+    transform: translateY(0) scale(1, 1);
+  }
+}
+
+/* NUEVO BLOQUE: Estilos para la deformación */
+.metaball-deform {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.2s ease-out;
+}
+
+/* Ya existentes */
+.metaball-float {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #ccff0000;
+  overflow: hidden;
+  animation: float 4s ease-in-out infinite;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: backdrop-filter 0.4s ease, background 0.4s ease;
+  filter: blur(0.5px);
+  transition: all 0.3s ease;
 }
 
-.project-banner:hover .overlay {
-  backdrop-filter: blur(0px);
-  /* Quita el desenfoque al hacer hover */
-  -webkit-backdrop-filter: blur(0px);
-  background: rgba(0, 0, 0, 0.349);
-  /* Oscurece más en hover */
+.metaball-mask {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  mask-image: radial-gradient(circle, white 100%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle, white 100%, transparent 100%);
+}
+
+
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 1.5em;
+  bottom: 1em;
+  position: relative;
+  z-index: 10;
+}
+
+.carousel-indicators .indicator {
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: background-color 0.3s ease;
+
+}
+
+.carousel-indicators .indicator.active {
+  background-color: #ccff00;
 }
 
 
@@ -624,12 +782,27 @@ h1 {
 }
 
 #contacto>h2 {
-  font-size: 4em;
+  font-size: 3em;
 }
 
 
 
 
+
+
+
+
+
+footer {
+  display: flex;
+  background-color: #ccff00;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Cal Sans", sans-serif;
+  font-size: 3em;
+  font-weight: 700;
+  color: rgb(0, 0, 0);
+}
 
 
 @media (max-width: 768px) {
@@ -662,17 +835,4 @@ h1 {
   .logo {
     font-size: 1.1rem;
   }
-}
-
-
-
-footer {
-  display: flex;
-  background-color: #ccff00;
-  flex-direction: column;
-  align-items: center;
-  font-family: "Cal Sans", sans-serif;
-  font-size: 3em;
-  font-weight: 700;
-  color: rgb(0, 0, 0);
 }

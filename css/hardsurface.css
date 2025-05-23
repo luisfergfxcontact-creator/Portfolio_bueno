@@ -6,6 +6,8 @@
   scroll-behavior: smooth;
   /* Desplazamiento suave en toda la página */
   overflow-x: hidden;
+  scrollbar-width: none;
+  /* Para Firefox */
 
 }
 
@@ -262,16 +264,15 @@ button:hover,
 
 
 .metaball-float {
-  position: absolute;
-  overflow: hidden;
-  /* ✅ Mantenerlo */
-  padding: 20px;
-  /* ✅ Añade espacio interno para evitar que se corte el contenido */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation: float 2s ease-in-out infinite;
-  z-index: 10;
+    position: absolute;
+    overflow: hidden;
+    padding: 20px;
+    top: 75%;
+    left: 50%;
+    opacity: 70%;
+    transform: translate(-50%, -50%);
+    animation: float 2s ease-in-out infinite;
+    z-index: 10;
 }
 
 
@@ -543,54 +544,126 @@ button:hover,
   color: #ccff00;
 }
 
-
+/* seccion 1 */
 
 .avioneta {
+  display: flex;
+  flex-direction: row;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  
+  gap: 2em;
+  padding: 2em;
+  background-color: #000000;
+  color: white;
+  justify-content: space-evenly;
+margin-top: 5em;
 }
-.txt1{
-  width: 100vw;
-  display: flex;
-  
+
+.txt1 {
+max-width: 50vw;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    padding: 1em;
+
 }
-.avioneta>.txt1 {
-  color: aliceblue;
-  display: flex;
-  flex-direction: column;
+.txt1>h1 {
+  font-size: 4em;
+}
+.txt1>p {
+  margin: 1em;
   font-size: 2em;
-  margin: 2em;
-  
+
 }
 
-.imagen1{
-  background-image: url(/media/hidroavion_animacion_10001.png);
-  object-fit: cover;
-  width: 100vw;
-  height: 30vh;
+.highlight {
+  color: #ccff00;
 }
 
-img{
-  object-fit: cover;
-  width: 100vw;
-    height: 100vh;
-    background-size: cover;
-    background-position: center;
-    position: relative;
+.carrusel {
+   flex: 1;
     overflow: hidden;
+    display: flex
+;
+    flex-direction: column;
+    height: 70vh;
+    width: 90vw;
+    margin: 3em;
+}
+
+
+.carousel-slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 1em;
+  overflow-y: hidden;
+}
+
+.carousel-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+  z-index: 1;
 }
 
 
 
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 1.5em;
+  margin-top: 2em;
+  position: relative;
+  height: 10%;
+  z-index: 2;
+}
+
+.carousel-indicators .indicator {
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: background-color 0.3s ease;
+}
+
+.carousel-indicators .indicator.active {
+  background-color: #ccff00;
+}
 
 
+/* seccion 2 */
 
+.canoa {
+  display: flex;
+  flex-direction: row-reverse;
+  height: 100vh;
+  gap: 2em;
+  padding: 2em;
+  background-color: #000000;
+  color: white;
+  justify-content: space-evenly;
+margin-top: 5em;
+}
+/* seccion 3 */
 
-
-
+.cascos {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  gap: 2em;
+  padding: 2em;
+  background-color: #000000;
+  color: white;
+  justify-content: space-evenly;
+margin-top: 5em;
+}
 
 
 
