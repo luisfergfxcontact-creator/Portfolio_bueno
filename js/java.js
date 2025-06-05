@@ -166,6 +166,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+//*cortinillas*//
+  document.addEventListener("DOMContentLoaded", () => {
+    const isIndex = window.location.pathname.endsWith("index.html") || window.location.pathname === "/";
+    const fullLoader = document.getElementById("loader");
+    const simpleLoader = document.getElementById("simple-loader");
+
+    if (!isIndex && simpleLoader) {
+      // Cortinilla solo en páginas que NO son index
+      setTimeout(() => {
+        simpleLoader.remove();
+      }, 1600); // Match con duración total del slideInOut
+    }
+  });
+
+
+
   if (loader) {
     setTimeout(() => {
       loader.classList.add("loader--hide");
@@ -308,4 +324,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+  
 });
+
+
+
+
