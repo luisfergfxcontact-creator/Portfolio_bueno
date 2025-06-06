@@ -327,6 +327,68 @@ document.addEventListener("DOMContentLoaded", () => {
   
 });
 
+ // ---------------------------
+// Canvas de ruido/grano animado (noise grain)
+// ---------------------------
+(() => {
+  const canvas = document.getElementById("noise-canvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
 
+  const patternCanvas = document.createElement("canvas");
+  const patternCtx = patternCanvas.getContext("2d");
 
+  let width, height;
+  const patternSize = 100;
+  const patternRefreshInterval = 3;
+  let frame = 0;
+
+  function resize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+
+    canvas.width = width;
+    canvas.height = height;
+    canvas.style.width = width + "px";
+    canvas.style.height = height + "px";
+
+    patternCanvas.width = patternSize;
+    patternCanvas.height = patternSize;
+  }
+
+  function updatePattern() {
+    const imageData = patternCtx.createImageData(patternSize, patternSize);
+    const data = imageData.data;
+
+    for (let i = 0; i < data.length; i += 4) {
+      const val = Math.floor(Math.random() * 255);
+      data[i] = val;
+      data[i + 1] = val;
+      data[i + 2] = val;
+      data[i + 3] = 10; // opacidad baja para grano sutil
+    }
+
+    patternCtx.putImageData(imageData, 0, 0);
+  }
+
+  function drawGrain() {
+    ctx.clearRect(0, 0, width, height);
+    const pattern = ctx.createPattern(patternCanvas, "repeat");
+    ctx.fillStyle = pattern;
+    ctx.fillRect(0, 0, width, height);
+  }
+
+  function loop() {
+    if (frame % patternRefreshInterval === 0) {
+      updatePattern();
+      drawGrain();
+    }
+    frame++;
+    requestAnimationFrame(loop);
+  }
+
+  window.addEventListener("resize", resize);
+  resize();
+  loop();
+})();
 

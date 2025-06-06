@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,97 +7,69 @@
 
   <!-- Favicon -->
   <link rel="icon" href="/media/logo.png" type="image/x-icon" sizes="80x80">
-
-  <!-- Si quieres otros tamaños de íconos -->
   <link rel="icon" href="images/logo.png" type="image/png" sizes="32x32">
 
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/output.css" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
-    rel="stylesheet">
-    
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-
+  <!-- Cargador -->
   <div id="loader">
     <div class="loader-content">
-      <h1 class="loader-text">Loading...</h1> <!-- Aquí es donde cambiará el texto -->
+      <h1 class="loader-text">Loading...</h1>
       <div class="progress-bar-background">
         <div class="progress-bar"></div>
       </div>
     </div>
   </div>
 
-  <!-- Contenedor para la carita con la animación de zoom in -->
+  <!-- Contenido principal -->
+  <div class="content-wrapper"></div>
+  <canvas id="metaball-cursor"></canvas>
+
+
+  <div class="fixed inset-0 pointer-events-none z-50">
+  <canvas id="noise-canvas" class="w-full h-full"></canvas>
+</div>
 
 
 
-  <!-- Aquí va el resto de tu contenido -->
-  <div class="content-wrapper">
-    <!-- El resto del contenido de la página -->
-  </div>
-
-
-
-  <canvas id="metaball-cursor"></canvas> <!-- El canvas donde se dibuja el metaball -->
-
-
+  <!-- Intro con video -->
   <section id="intro-video">
     <video autoplay muted loop playsinline>
       <source src="/media/Showreel_web.mp4" type="video/mp4" />
       Tu navegador no soporta la etiqueta de video.
     </video>
-
-
-    <!-- Overlay -->
     <div class="video-overlay"></div>
-
-    <!-- Texto encima -->
     <header class="marquee">
       <div class="marquee__inner">
-        <!-- Un bloque repetido -->
         <div class="marquee__block">
-          <span><span class="highlight">3D</span> Generalist</span>
-          <span class="dot">·</span>
-          <span>Graphic <span class="highlight">Designer</span></span>
-          <span class="dot">·</span>
+          <span><span class="highlight">3D</span> Generalist</span><span class="dot">·</span>
+          <span>Graphic <span class="highlight">Designer</span></span><span class="dot">·</span>
         </div>
         <div class="marquee__block">
-          <span><span class="highlight">3D</span> Generalist</span>
-          <span class="dot">·</span>
-          <span>Graphic <span class="highlight">Designer</span></span>
-          <span class="dot">·</span>
+          <span><span class="highlight">3D</span> Generalist</span><span class="dot">·</span>
+          <span>Graphic <span class="highlight">Designer</span></span><span class="dot">·</span>
         </div>
         <div class="marquee__block">
-          <span><span class="highlight">3D</span> Generalist</span>
-          <span class="dot">·</span>
-          <span>Graphic <span class="highlight">Designer</span></span>
-          <span class="dot">·</span>
+          <span><span class="highlight">3D</span> Generalist</span><span class="dot">·</span>
+          <span>Graphic <span class="highlight">Designer</span></span><span class="dot">·</span>
         </div>
         <div class="marquee__block">
-          <span><span class="highlight">3D</span> Generalist</span>
-          <span class="dot">·</span>
-          <span>Graphic <span class="highlight">Designer</span></span>
-          <span class="dot">·</span>
+          <span><span class="highlight">3D</span> Generalist</span><span class="dot">·</span>
+          <span>Graphic <span class="highlight">Designer</span></span><span class="dot">·</span>
         </div>
       </div>
     </header>
-
-
-
-
-
-
-
-
-
   </section>
 
-
+  <!-- Proyectos -->
   <section id="proyectos-carousel">
     <h1>Proyectos</h1>
     <div class="metaball-wrapper">
@@ -145,7 +116,7 @@
       </div>
     </div>
 
-    <!-- Indicadores del carrusel -->
+    <!-- Indicadores -->
     <div class="carousel-indicators">
       <div class="indicator active"></div>
       <div class="indicator"></div>
@@ -154,38 +125,28 @@
       <div class="indicator"></div>
     </div>
 
-
-  <div class="carousel-nav">
-  <button class="prev">
-    <span class="icon"><img src="/media/flecha.svg" alt="Anterior" /></span>
-  </button>
-  <button class="next">
-    <span class="icon"><img src="/media/flecha.svg" alt="Siguiente" /></span>
-  </button>
-</div>
-
+    <!-- Navegación -->
+    <div class="carousel-nav">
+      <button class="prev">
+        <span class="icon"><img src="/media/flecha.svg" alt="Anterior" /></span>
+      </button>
+      <button class="next">
+        <span class="icon"><img src="/media/flecha.svg" alt="Siguiente" /></span>
+      </button>
+    </div>
   </section>
 
-
-
-
-
-
-
-
-
+  <!-- Sobre mí -->
   <section id="sobre-mi">
-
-    <br>
-    <br>
-    <br>
+    <br><br><br>
     <p>Aquí puedes escribir una breve biografía tuya, tus intereses y habilidades.</p>
   </section>
+
+  <!-- Navegación principal -->
   <nav class="main-nav">
     <div class="logo">
-      <h2>LuisFer.
+      <h2>LuisFer.</h2>
     </div>
-    </h2>
     <ul class="nav-links">
       <li><a href="#proyectos-carousel">Proyectos</a></li>
       <li><a href="#sobre-mi">Sobre mí</a></li>
@@ -194,7 +155,17 @@
   </nav>
 
 
+  <!-- sobre mi -->
 
+<!-- Sobre mí -->
+<section id="sobre-mi" class="px-6 py-12">
+  <h2 class="text-3xl font-bold mb-6 text-pressure">Sobre mí</h2>
+  <p>Aquí puedes escribir una breve biografía tuya, tus intereses y habilidades.</p>
+</section>
+
+
+
+  <!-- Contacto -->
   <section id="contacto">
     <h2>Contacto</h2>
     <p>Email: tuemail@ejemplo.com</p>
@@ -206,11 +177,10 @@
   </section>
 
   <footer>
-
     <p>&copy; 2025 Luis Fernando Martínez</p>
-
-
   </footer>
+
+  <!-- Scroll Balls -->
   <div class="scroll-balls-container">
     <div class="scroll-balls">
       <a href="#intro-video" class="ball" data-section="intro-video"></a>
@@ -220,10 +190,6 @@
   </div>
 
 
-
-
   <script src="js/java.js"></script>
-
 </body>
-
 </html>
