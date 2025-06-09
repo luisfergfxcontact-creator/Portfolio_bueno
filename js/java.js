@@ -365,7 +365,7 @@ document.addEventListener("DOMContentLoaded", () => {
       data[i] = val;
       data[i + 1] = val;
       data[i + 2] = val;
-      data[i + 3] = 10; // opacidad baja para grano sutil
+      data[i + 3] = 20; // opacidad baja para grano sutil
     }
 
     patternCtx.putImageData(imageData, 0, 0);
