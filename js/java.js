@@ -88,9 +88,45 @@ document.addEventListener("DOMContentLoaded", () => {
       element.addEventListener("mouseleave", () => isHoveringInteractiveElement = false);
     });
 
+    // Manejo de eventos de mouse y táctiles para móvil
+    function updateTargetPosition(x, y) {
+      target.x = x;
+      target.y = y;
+    }
+
     document.addEventListener("mousemove", (e) => {
-      target.x = e.clientX;
-      target.y = e.clientY;
+      updateTargetPosition(e.clientX, e.clientY);
+    });
+
+    // Eventos táctiles para móvil
+    document.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      updateTargetPosition(touch.clientX, touch.clientY);
+    });
+
+    document.addEventListener("touchmove", (e) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      updateTargetPosition(touch.clientX, touch.clientY);
+    });
+
+    // Mantener el metaball visible durante el scroll en móvil
+    let isTouching = false;
+    document.addEventListener("touchstart", () => {
+      isTouching = true;
+    });
+
+    document.addEventListener("touchend", () => {
+      isTouching = false;
+    });
+
+    // Actualizar posición durante scroll en móvil
+    window.addEventListener("scroll", () => {
+      if (isTouching) {
+        // Mantener el metaball en la posición del último toque durante el scroll
+        return;
+      }
     });
 
     function animate() {
