@@ -1404,7 +1404,6 @@ button:hover,
 
 .carousel-nav {
   position: absolute;
-  top: 50%;
   width: 100%;
   display: flex;
   justify-content: space-around;

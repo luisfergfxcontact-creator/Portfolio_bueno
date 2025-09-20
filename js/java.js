@@ -390,5 +390,119 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", resize);
   resize();
   loop();
+
+
+
+
+})();
+
+// --- Envío del formulario de contacto (mailto) ---
+(() => {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+  const status = document.getElementById('contact-status');
+  const nameInput = document.getElementById('nombre');
+  const emailInput = document.getElementById('email');
+  const messageInput = document.getElementById('mensaje');
+
+  function setStatus(msg, isError = false) {
+    if (status) {
+      status.textContent = msg;
+      status.style.color = isError ? '#fca5a5' : '#9ca3af';
+    }
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const nombre = nameInput?.value.trim();
+    const email = emailInput?.value.trim();
+    const mensaje = messageInput?.value.trim();
+
+    if (!nombre || !email || !mensaje) {
+      setStatus('Por favor completa todos los campos.', true);
+      return;
+    }
+
+    // Validación básica de email
+    const emailOk = /.+@.+\..+/.test(email);
+    if (!emailOk) {
+      setStatus('Introduce un email válido.', true);
+      return;
+    }
+
+    setStatus('Abriendo tu cliente de correo...');
+
+    const subject = encodeURIComponent('Contacto desde el portafolio');
+    const bodyLines = [
+      `Nombre: ${nombre}`,
+      `Email: ${email}`,
+      '',
+      'Mensaje:',
+      `${mensaje}`
+    ];
+    const body = encodeURIComponent(bodyLines.join('\n'));
+
+    const mailto = `mailto:tuemail@ejemplo.com?subject=${subject}&body=${body}`;
+
+    // Abrir mailto
+    window.location.href = mailto;
+
+    // Feedback y limpiar
+    setTimeout(() => {
+      setStatus('Si no se abrió el correo, escríbeme a tuemail@ejemplo.com');
+      form.reset();
+    }, 600);
+  });
+})();
+
+// --- Modal Showreel: abrir en fullscreen con audio ---
+(() => {
+  const openBtn = document.getElementById('open-showreel');
+  const modal = document.getElementById('showreel-modal');
+  const closeBtn = document.getElementById('close-showreel');
+  const video = document.getElementById('showreel-video');
+  const backdrop = modal?.querySelector('.showreel-backdrop');
+
+  if (!openBtn || !modal || !video) return;
+
+  function openModal() {
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('is-showreel-open');
+
+    // Quitar mute y reproducir con interacción del usuario
+    video.muted = false;
+    video.currentTime = 0;
+    video.play().catch(() => {});
+
+    // Intentar fullscreen del contenedor del video
+    const target = modal;
+    const requestFS = target.requestFullscreen || target.webkitRequestFullscreen || target.msRequestFullscreen;
+    if (requestFS) {
+      requestFS.call(target).catch?.(() => {});
+    }
+  }
+
+  function closeModal() {
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('is-showreel-open');
+    video.pause();
+
+    // Salir de fullscreen si está activo
+    const exitFS = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+    if (document.fullscreenElement && exitFS) {
+      exitFS.call(document).catch?.(() => {});
+    }
+  }
+
+  openBtn.addEventListener('click', openModal);
+  closeBtn?.addEventListener('click', closeModal);
+  backdrop?.addEventListener('click', closeModal);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
+      closeModal();
+    }
+  });
 })();
 
