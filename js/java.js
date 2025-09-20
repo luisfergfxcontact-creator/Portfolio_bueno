@@ -94,27 +94,31 @@ document.addEventListener("DOMContentLoaded", () => {
       target.y = y;
     }
 
+    let isTouching = false;
+    let lastTouchPosition = { x: width / 2, y: height / 2 };
+
     document.addEventListener("mousemove", (e) => {
-      updateTargetPosition(e.clientX, e.clientY);
+      if (!isTouching) {
+        updateTargetPosition(e.clientX, e.clientY);
+      }
     });
 
-    // Eventos táctiles para móvil
+    // Eventos táctiles para móvil - sin preventDefault para permitir scroll
     document.addEventListener("touchstart", (e) => {
-      e.preventDefault();
+      isTouching = true;
       const touch = e.touches[0];
+      lastTouchPosition.x = touch.clientX;
+      lastTouchPosition.y = touch.clientY;
       updateTargetPosition(touch.clientX, touch.clientY);
     });
 
     document.addEventListener("touchmove", (e) => {
-      e.preventDefault();
-      const touch = e.touches[0];
-      updateTargetPosition(touch.clientX, touch.clientY);
-    });
-
-    // Mantener el metaball visible durante el scroll en móvil
-    let isTouching = false;
-    document.addEventListener("touchstart", () => {
-      isTouching = true;
+      if (isTouching) {
+        const touch = e.touches[0];
+        lastTouchPosition.x = touch.clientX;
+        lastTouchPosition.y = touch.clientY;
+        updateTargetPosition(touch.clientX, touch.clientY);
+      }
     });
 
     document.addEventListener("touchend", () => {
@@ -124,8 +128,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // Actualizar posición durante scroll en móvil
     window.addEventListener("scroll", () => {
       if (isTouching) {
-        // Mantener el metaball en la posición del último toque durante el scroll
-        return;
+        // Mantener el metaball en la última posición táctil durante el scroll
+        updateTargetPosition(lastTouchPosition.x, lastTouchPosition.y);
       }
     });
 
