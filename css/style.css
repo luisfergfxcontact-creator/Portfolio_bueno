@@ -750,6 +750,7 @@ button:hover,
   bottom: 1em;
   position: relative;
   z-index: 10;
+  padding: 1em;
 }
 
 .carousel-indicators .indicator {
