@@ -1,3 +1,4 @@
+/* Updated: 2025-01-27 - Mobile responsive fixes */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -1024,15 +1025,19 @@ button:hover,
   #intro-video header { top: 24%; }
   .showreel-cta { bottom: 10vh; }
 
-  #proyectos-carousel h1 { font-size: 2rem; }
+  #proyectos-carousel h1 { font-size: 1.8rem; margin-bottom: 1rem; }
   .carousel-indicators .indicator { width: 1.1em; height: 1.1em; }
 }
 
 @media (max-width: 768px) {
-  .main-nav { width: calc(100% - 2rem); padding: 0.7rem 1.25rem; }
-  .logo>h2 { font-size: 1.6rem; }
-  .nav-links { gap: 1rem; }
-  .nav-links a { font-size: 0.95rem; }
+  .main-nav { 
+    width: calc(100% - 2rem); 
+    padding: 0.5rem 1rem; 
+    top: 10px;
+  }
+  .logo>h2 { font-size: 1.4rem; }
+  .nav-links { gap: 0.8rem; }
+  .nav-links a { font-size: 0.9rem; }
 
   .marquee { font-size: 3.75rem; padding: 1rem 0; }
   #intro-video header { top: 26%; }
@@ -1047,6 +1052,26 @@ button:hover,
     object-fit: cover !important;
     -webkit-mask-image: none !important;
     mask-image: none !important;
+  }
+
+  /* Carrusel de proyectos más pequeño en móvil */
+  #proyectos-carousel {
+    width: calc(100vw - 3rem);
+    height: 60vh;
+    margin: 1.5rem 1.5rem 0 1.5rem;
+    border-radius: 20px;
+  }
+
+  #proyectos-carousel h1 { 
+    font-size: 1.5rem; 
+    margin-bottom: 0.8rem; 
+  }
+
+  .metaball-wrapper {
+    width: calc(100% - 1rem);
+    height: calc(100% - 1rem);
+    margin: 0.5rem;
+    padding: 0;
   }
 
   /* Carruseles genéricos */
@@ -1071,14 +1096,44 @@ button:hover,
 }
 
 @media (max-width: 480px) {
-  .main-nav { left: 50%; transform: translateX(-50%); width: calc(100% - 1.5rem); padding: 0.6rem 1rem; }
-  .logo>h2 { font-size: 1.4rem; }
-  .nav-links { gap: 0.7rem; }
-  .nav-links a { font-size: 0.9rem; }
+  .main-nav { 
+    left: 50%; 
+    transform: translateX(-50%); 
+    width: calc(100% - 1.5rem); 
+    padding: 0.4rem 0.8rem; 
+    top: 8px;
+  }
+  .logo>h2 { font-size: 1.2rem; }
+  .nav-links { gap: 0.6rem; }
+  .nav-links a { font-size: 0.8rem; }
 
   .marquee { font-size: 2.6rem; }
   #intro-video header { top: 28%; }
   .btn-showreel { font-size: 0.95rem; padding: 0.75rem 1.2rem; }
+
+  /* Carrusel de proyectos aún más pequeño en móviles pequeños */
+  #proyectos-carousel {
+    width: calc(100vw - 2.5rem);
+    height: 55vh;
+    margin: 1rem 1.25rem 0 1.25rem;
+    border-radius: 15px;
+  }
+
+  #proyectos-carousel h1 { 
+    font-size: 1.3rem; 
+    margin-bottom: 0.6rem; 
+  }
+
+  .metaball-wrapper {
+    width: calc(100% - 0.5rem);
+    height: calc(100% - 0.5rem);
+    margin: 0.25rem;
+  }
+
+  /* Carruseles más pequeños en móviles pequeños */
+  .carrusel { height: 50vh; }
+  .carousel-indicators { gap: 0.8rem; }
+  .carousel-indicators .indicator { width: 0.8em; height: 0.8em; }
 
   #contacto { padding: 4rem 1rem; }
   #contacto .contact-wrapper { padding: 1.2rem; border-radius: 18px; }
