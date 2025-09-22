@@ -2,6 +2,40 @@ console.log("Portafolio cargado correctamente");
 
 document.addEventListener("DOMContentLoaded", () => {
   // ---------------------------
+  // Detección de entrada: táctil vs ratón
+  // ---------------------------
+  let inputMode = "mouse"; // 'mouse' | 'touch'
+
+  function setInputMode(mode) {
+    if (inputMode === mode) return;
+    inputMode = mode;
+    document.body.classList.toggle('input-touch', mode === 'touch');
+    document.body.classList.toggle('input-mouse', mode === 'mouse');
+    const c = document.getElementById('metaball-cursor');
+    if (c) {
+      if (mode === 'touch') {
+        c.style.display = 'none';
+      } else {
+        c.style.display = 'block';
+      }
+    }
+  }
+
+  // Estado inicial según media queries
+  try {
+    const prefersTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+    setInputMode(prefersTouch ? 'touch' : 'mouse');
+  } catch (_) {}
+
+  // Cambios dinámicos por eventos de puntero
+  window.addEventListener('pointerdown', (e) => {
+    if (e.pointerType === 'touch' || e.pointerType === 'pen') setInputMode('touch');
+  }, { passive: true });
+  window.addEventListener('pointermove', (e) => {
+    if (e.pointerType === 'mouse') setInputMode('mouse');
+  }, { passive: true });
+
+  // ---------------------------
   // Scroll balls navigation
   // ---------------------------
   const balls = document.querySelectorAll(".scroll-balls .ball[data-section]");

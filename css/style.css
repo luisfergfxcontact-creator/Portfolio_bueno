@@ -239,6 +239,11 @@ span {
 
 }
 
+/* Ocultar metaball y restaurar cursor en modo táctil */
+body.input-touch #metaball-cursor { display: none !important; }
+body.input-touch * { cursor: auto !important; }
+body.input-mouse * { cursor: none; }
+
 
 /* Aplicamos el desenfoque en el metaball cuando está sobre un elemento interactivo */
 #metaball-cursor:hover {
@@ -500,13 +505,14 @@ button:hover,
   position: relative;
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  overflow: visible;
   background: #000;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-top: 5em;
+  padding-bottom: 7rem;
 }
 
 .metaball-wrapper {
@@ -743,14 +749,16 @@ button:hover,
 }
 
 
-.carousel-indicators {
+#proyectos-carousel .carousel-indicators {
   display: flex;
   justify-content: center;
   gap: 1.5em;
-  bottom: 1em;
   position: relative;
-  z-index: 10;
-  padding: 1em;
+  z-index: 100;
+  isolation: isolate;
+  transform: translateZ(0);
+  padding: 0;
+ 
 }
 
 .carousel-indicators .indicator {
