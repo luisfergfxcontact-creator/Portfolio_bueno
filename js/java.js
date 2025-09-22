@@ -414,9 +414,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const menu = document.getElementById('footerMenu');
     const icon = document.querySelector('.menu-icon');
     if (!toggleBtn || !menu) return;
-    toggleBtn.addEventListener('click', () => {
+    const panel = menu.querySelector('.menu-panel');
+    toggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
       const showing = menu.classList.toggle('show');
+      if (panel) panel.classList.toggle('open', showing);
       if (icon) icon.style.transform = showing ? 'rotate(180deg)' : 'rotate(0deg)';
+    });
+    document.addEventListener('click', () => {
+      if (menu.classList.contains('show')) {
+        menu.classList.remove('show');
+        if (panel) panel.classList.remove('open');
+        if (icon) icon.style.transform = 'rotate(0deg)';
+      }
     });
   })();
   

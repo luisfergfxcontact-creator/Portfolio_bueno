@@ -99,10 +99,9 @@
     <div class="txt1">
       <h1>1. Corazón <span class="highlight">estilizado</span></h1>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil soluta sequi odio nostrum aliquid temporibus
-        optio eius modi adipisci porro, quae voluptas. Molestiae est suscipit nam magni mollitia quam ullam.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil soluta sequi odio nostrum aliquid temporibus
-        optio eius modi adipisci porro, quae voluptas. Molestiae est suscipit nam magni mollitia quam ullam.
+        Búsqueda formal del símbolo del corazón: simplificación de masas, proporción y
+        ritmo de curvas. Se prioriza una lectura limpia para motion y gráfica, con materiales
+        satinados que responden bien a luces amplias y reflejos controlados.
       </p>
     </div>
 
@@ -132,10 +131,9 @@
     <div class="txt1">
       <h1>2. Estudio <span class="highlight">anatómico</span> del corazón</h1>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil soluta sequi odio nostrum aliquid temporibus
-        optio eius modi adipisci porro, quae voluptas. Molestiae est suscipit nam magni mollitia quam ullam.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil soluta sequi odio nostrum aliquid temporibus
-        optio eius modi adipisci porro, quae voluptas. Molestiae est suscipit nam magni mollitia quam ullam.
+        Referenciado en anatomía real: cavidades, arterias y venas principales con
+        interpretación artística. Texturizado procedural con variación sutil de color,
+        sub-surface scattering y microrelieves para acercarlo a material orgánico.
       </p>
     </div>
 
@@ -163,10 +161,9 @@
     <div class="txt1">
       <h1>3. Corazón <span class="highlight">estilizado</span> v2</h1>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil soluta sequi odio nostrum aliquid temporibus
-        optio eius modi adipisci porro, quae voluptas. Molestiae est suscipit nam magni mollitia quam ullam.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil soluta sequi odio nostrum aliquid temporibus
-        optio eius modi adipisci porro, quae voluptas. Molestiae est suscipit nam magni mollitia quam ullam.
+        Segunda iteración orientada a look dev para prints y encabezados. Mejora de
+        silueta, highlights y contraste de materiales. Se exploran encuadres y profundidad
+        de campo para reforzar el impacto visual.
       </p>
     </div>
 
@@ -247,6 +244,7 @@
       </button>
       
       <div class="menu-content" id="footerMenu">
+        <div class="menu-panel">
         <div class="menu-section">
           <ul>
             <li><a href="index.html">Homepage</a></li>
@@ -257,6 +255,7 @@
             <li><a href="animaciones.html">Animaciones</a></li>
             <li><a href="TFG.html">TFG</a></li>
           </ul>
+        </div>
         </div>
       </div>
     </div>
@@ -299,12 +298,13 @@
   function toggleFooterMenu() {
     const menu = document.getElementById('footerMenu');
     const icon = document.querySelector('.menu-icon');
+    const isOpen = menu.classList.contains('show');
     
-    if (menu.style.display === 'block') {
-      menu.style.display = 'none';
+    if (isOpen) {
+      menu.classList.remove('show');
       icon.style.transform = 'rotate(0deg)';
     } else {
-      menu.style.display = 'block';
+      menu.classList.add('show');
       icon.style.transform = 'rotate(180deg)';
     }
   }

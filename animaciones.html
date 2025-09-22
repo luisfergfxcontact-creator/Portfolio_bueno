@@ -95,10 +95,9 @@
     <div class="txt1">
       <h1>1. Stop <span class="highlight">Motiont</span><h1>animation</h1></h1>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil soluta sequi odio nostrum aliquid temporibus
-        optio eius modi adipisci porro, quae voluptas. Molestiae est suscipit nam magni mollitia quam ullam.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil soluta sequi odio nostrum aliquid temporibus
-        optio eius modi adipisci porro, quae voluptas. Molestiae est suscipit nam magni mollitia quam ullam.
+        Ensayo de stop motion mezclado con comp en digital. Se prueban ritmos de corte,
+        motion blur añadido y texturas físicas para acentuar la materialidad. El foco está
+        en timing y en la expresividad del movimiento.
       </p>
     </div>
 
@@ -130,10 +129,8 @@
       <h1>2. Dinosaurio <span class="highlight">estilizado</span>
       </h1>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil soluta sequi odio nostrum aliquid temporibus
-        optio eius modi adipisci porro, quae voluptas. Molestiae est suscipit nam magni mollitia quam ullam.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil soluta sequi odio nostrum aliquid temporibus
-        optio eius modi adipisci porro, quae voluptas. Molestiae est suscipit nam magni mollitia quam ullam.
+        Pruebas de keyframes con easing y anticipación para dar peso y carácter. Se
+        exploran cámaras y DOF para dirigir la atención.
       </p>
     </div>
 
@@ -161,10 +158,8 @@
     <div class="txt1">
       <h1>Pez Diablo <span class="highlight">estilizado</span></h1>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil soluta sequi odio nostrum aliquid temporibus
-        optio eius modi adipisci porro, quae voluptas. Molestiae est suscipit nam magni mollitia quam ullam.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil soluta sequi odio nostrum aliquid temporibus
-        optio eius modi adipisci porro, quae voluptas. Molestiae est suscipit nam magni mollitia quam ullam.
+        Loop corto con foco en oscilación de luz y deformación suave. Materiales emisivos
+        y contraste cromático para una lectura inmediata en redes.
       </p>
     </div>
 
@@ -245,6 +240,7 @@
       </button>
       
       <div class="menu-content" id="footerMenu">
+        <div class="menu-panel">
         <div class="menu-section">
           <ul>
             <li><a href="index.html">Homepage</a></li>
@@ -255,6 +251,7 @@
             <li><a href="animaciones.html">Animaciones</a></li>
             <li><a href="TFG.html">TFG</a></li>
           </ul>
+        </div>
         </div>
       </div>
     </div>
@@ -297,12 +294,13 @@
   function toggleFooterMenu() {
     const menu = document.getElementById('footerMenu');
     const icon = document.querySelector('.menu-icon');
+    const isOpen = menu.classList.contains('show');
     
-    if (menu.style.display === 'block') {
-      menu.style.display = 'none';
+    if (isOpen) {
+      menu.classList.remove('show');
       icon.style.transform = 'rotate(0deg)';
     } else {
-      menu.style.display = 'block';
+      menu.classList.add('show');
       icon.style.transform = 'rotate(180deg)';
     }
   }

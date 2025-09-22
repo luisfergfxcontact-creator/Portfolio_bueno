@@ -99,10 +99,11 @@
     <div class="txt1">
       <h1>1. Concepto <span class="highlight">Hidroavión</span></h1>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil soluta sequi odio nostrum aliquid temporibus
-        optio eius modi adipisci porro, quae voluptas. Molestiae est suscipit nam magni mollitia quam ullam.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil soluta sequi odio nostrum aliquid temporibus
-        optio eius modi adipisci porro, quae voluptas. Molestiae est suscipit nam magni mollitia quam ullam.
+        Exploración de hard surface centrada en la lectura de volúmenes y paneles.
+        Partí de un blockout para definir proporciones y pasé a detalles con bevels controlados,
+        booleanos limpios y control de aristas para subdivisión. Shaders metálicos y plásticos
+        con micro-roughness y mapas de AO realzan cortes y uniones. Los wireframes muestran una
+        topología ordenada pensada para renders de producto.
       </p>
     </div>
 
@@ -132,10 +133,9 @@
     <div class="txt1">
       <h1>2. Concepto <span class="highlight">Canoa</span> estilizada</h1>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil soluta sequi odio nostrum aliquid temporibus
-        optio eius modi adipisci porro, quae voluptas. Molestiae est suscipit nam magni mollitia quam ullam.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil soluta sequi odio nostrum aliquid temporibus
-        optio eius modi adipisci porro, quae voluptas. Molestiae est suscipit nam magni mollitia quam ullam.
+        Pieza estilizada con énfasis en silueta y materiales. Modelado low-mid poly con
+        loops limpios y UVs simples para texturas PBR ligeras (madera, pintura y desgaste
+        sutil). Iluminación suave tipo estudio para destacar formas y variación de roughness.
       </p>
     </div>
 
@@ -163,10 +163,10 @@
     <div class="txt1">
       <h1>3. Modelado <span class="highlight">Cascos</span> amazon</h1>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil soluta sequi odio nostrum aliquid temporibus
-        optio eius modi adipisci porro, quae voluptas. Molestiae est suscipit nam magni mollitia quam ullam.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil soluta sequi odio nostrum aliquid temporibus
-        optio eius modi adipisci porro, quae voluptas. Molestiae est suscipit nam magni mollitia quam ullam.
+        Visualización de producto: modelado preciso orientado a catálogo con subdivisión
+        segura, tolerancias ajustadas y separación de piezas. Materiales plásticos, goma y
+        acabados cromados con fingerprints mínimos. Variantes de color y encuadres para
+        uso en e‑commerce y redes.
       </p>
     </div>
 
@@ -249,6 +249,7 @@
       </button>
       
       <div class="menu-content" id="footerMenu">
+        <div class="menu-panel">
         <div class="menu-section">
           <ul>
             <li><a href="index.html">Homepage</a></li>
@@ -268,6 +269,7 @@
             <li><a href="https://artstation.com" target="_blank">ArtStation</a></li>
             <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
           </ul>
+        </div>
         </div>
       </div>
     </div>
@@ -310,12 +312,13 @@
   function toggleFooterMenu() {
     const menu = document.getElementById('footerMenu');
     const icon = document.querySelector('.menu-icon');
+    const isOpen = menu.classList.contains('show');
     
-    if (menu.style.display === 'block') {
-      menu.style.display = 'none';
+    if (isOpen) {
+      menu.classList.remove('show');
       icon.style.transform = 'rotate(0deg)';
     } else {
-      menu.style.display = 'block';
+      menu.classList.add('show');
       icon.style.transform = 'rotate(180deg)';
     }
   }
