@@ -527,64 +527,52 @@ document.addEventListener("DOMContentLoaded", () => {
 
 })();
 
-// --- Envío del formulario de contacto (mailto) ---
+// --- Envío del formulario de contacto (FormSubmit AJAX) ---
 (() => {
   const form = document.getElementById('contact-form');
   if (!form) return;
   const status = document.getElementById('contact-status');
-  const nameInput = document.getElementById('nombre');
-  const emailInput = document.getElementById('email');
-  const messageInput = document.getElementById('mensaje');
 
-  function setStatus(msg, isError = false) {
+  async function sendForm(e){
+    e.preventDefault();
     if (status) {
-      status.textContent = msg;
-      status.style.color = isError ? '#fca5a5' : '#9ca3af';
+      status.textContent = 'Enviando...';
+      status.style.color = '#9ca3af';
+    }
+
+    const formData = new FormData(form);
+    // Asegurar que _replyto use el valor del campo email
+    const email = form.querySelector('#email')?.value || '';
+    formData.set('_replyto', email);
+    formData.append('_captcha', 'false');
+    formData.append('_subject', 'Nuevo contacto desde el portfolio');
+    formData.append('_template', 'table');
+
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/luisfergfx.contact@gmail.com', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: formData
+      });
+      const result = await response.json();
+      if (response.ok) {
+        if (status) {
+          status.textContent = '¡Gracias! Tu mensaje fue enviado.';
+          status.style.color = '#ccff00';
+        }
+        form.reset();
+      } else {
+        throw new Error(result?.message || 'Error al enviar');
+      }
+    } catch (err) {
+      if (status) {
+        status.textContent = 'No se pudo enviar. Prueba de nuevo o escribe a luisfergfx.contact@gmail.com';
+        status.style.color = '#fca5a5';
+      }
     }
   }
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const nombre = nameInput?.value.trim();
-    const email = emailInput?.value.trim();
-    const mensaje = messageInput?.value.trim();
-
-    if (!nombre || !email || !mensaje) {
-      setStatus('Por favor completa todos los campos.', true);
-      return;
-    }
-
-    // Validación básica de email
-    const emailOk = /.+@.+\..+/.test(email);
-    if (!emailOk) {
-      setStatus('Introduce un email válido.', true);
-      return;
-    }
-
-    setStatus('Abriendo tu cliente de correo...');
-
-    const subject = encodeURIComponent('Contacto desde el portafolio');
-    const bodyLines = [
-      `Nombre: ${nombre}`,
-      `Email: ${email}`,
-      '',
-      'Mensaje:',
-      `${mensaje}`
-    ];
-    const body = encodeURIComponent(bodyLines.join('\n'));
-
-    const mailto = `mailto:tuemail@ejemplo.com?subject=${subject}&body=${body}`;
-
-    // Abrir mailto
-    window.location.href = mailto;
-
-    // Feedback y limpiar
-    setTimeout(() => {
-      setStatus('Si no se abrió el correo, escríbeme a tuemail@ejemplo.com');
-      form.reset();
-    }, 600);
-  });
+  form.addEventListener('submit', sendForm);
 })();
 
 // --- Modal Showreel: abrir en fullscreen con audio ---

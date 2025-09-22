@@ -238,10 +238,10 @@
       <h2 id="contacto-title">Contacto</h2>
       <p class="contact-subtitle">¿Tienes un proyecto? Hablemos.</p>
 
-      <form id="contact-form" class="contact-form" novalidate>
+      <form id="contact-form" class="contact-form" method="POST" action="https://formsubmit.co/luisfergfx.contact@gmail.com">
         <div class="form-row">
           <label for="nombre">Nombre</label>
-          <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
+          <input type="text" id="nombre" name="name" placeholder="Tu nombre" required />
         </div>
         <div class="form-row">
           <label for="email">Email</label>
@@ -249,8 +249,14 @@
         </div>
         <div class="form-row">
           <label for="mensaje">Mensaje</label>
-          <textarea id="mensaje" name="mensaje" rows="5" placeholder="Cuéntame brevemente sobre tu idea" required></textarea>
+          <textarea id="mensaje" name="message" rows="5" placeholder="Cuéntame brevemente sobre tu idea" required></textarea>
         </div>
+        <input type="hidden" name="_subject" value="Nuevo contacto desde el portfolio" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_replyto" value="" />
+        <input type="text" name="_honey" style="display:none" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_next" value="/index.html#contacto" />
         <button type="submit" class="btn-enviar">
           <span>Enviar</span>
         </button>
