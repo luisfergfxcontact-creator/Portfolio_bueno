@@ -1690,3 +1690,41 @@ html, body { height: 100%; }
     display: none !important;
   }
 }
+
+/* Contacto: evitar scroll en móviles, compactar layout */
+@media (max-width: 800px) {
+  #contacto {
+    padding: 3rem 1rem; /* reduce padding vertical */
+    min-height: 100dvh; /* ocupar alto de la ventana */
+    box-sizing: border-box;
+  }
+  #contacto .contact-wrapper {
+    padding: 1rem; /* compacta contenedor */
+  }
+  #contacto h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+  #contacto .contact-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+  #contacto .contact-form {
+    grid-template-columns: 1fr; /* una columna */
+    gap: 0.75rem; /* menos separación */
+  }
+  #contacto label { font-size: 0.9rem; }
+  #contacto input, #contacto textarea {
+    font-size: 0.95rem;
+    padding: 0.7rem 0.85rem;
+  }
+  #contacto textarea {
+    min-height: 96px; /* textarea más baja para caber */
+    resize: vertical; /* permitir expandir si el usuario quiere */
+  }
+  #contacto .btn-enviar {
+    padding: 0.8rem 1.1rem;
+    font-size: 1rem;
+  }
+  #contacto .contact-status { min-height: 1rem; margin-top: 0.2rem; }
+}
