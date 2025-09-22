@@ -418,13 +418,39 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       const showing = menu.classList.toggle('show');
-      if (panel) panel.classList.toggle('open', showing);
+      if (panel) {
+        panel.classList.toggle('open', showing);
+        if (showing) {
+          const rect = toggleBtn.getBoundingClientRect();
+          panel.style.position = 'fixed';
+          panel.style.left = (rect.left + rect.width / 2) + 'px';
+          panel.style.bottom = (window.innerHeight - rect.top + 8) + 'px';
+          panel.style.top = '';
+          panel.style.transform = 'translate(-50%, 0)';
+          panel.style.zIndex = '2147483647';
+        } else {
+          panel.style.position = '';
+          panel.style.left = '';
+          panel.style.bottom = '';
+          panel.style.top = '';
+          panel.style.transform = '';
+          panel.style.zIndex = '';
+        }
+      }
       if (icon) icon.style.transform = showing ? 'rotate(180deg)' : 'rotate(0deg)';
     });
     document.addEventListener('click', () => {
       if (menu.classList.contains('show')) {
         menu.classList.remove('show');
-        if (panel) panel.classList.remove('open');
+        if (panel) {
+          panel.classList.remove('open');
+          panel.style.position = '';
+          panel.style.left = '';
+          panel.style.bottom = '';
+          panel.style.top = '';
+          panel.style.transform = '';
+          panel.style.zIndex = '';
+        }
         if (icon) icon.style.transform = 'rotate(0deg)';
       }
     });
