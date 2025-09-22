@@ -809,7 +809,7 @@ button:hover,
   padding: 1rem 1.5rem 0.5rem;
   margin-top: 2rem;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .compact-footer::before {
@@ -847,7 +847,11 @@ button:hover,
 }
 
 .footer-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
+  z-index: 1001;
 }
 
 .menu-toggle {
@@ -876,22 +880,21 @@ button:hover,
 
 .menu-content {
   position: absolute;
-  bottom: 100%;
-  right: 0;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
   background: rgba(0, 0, 0, 0.95);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 1rem;
-  min-width: 200px;
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  min-width: 260px;
   display: none;
   z-index: 1000;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55);
 }
 
-.menu-content.show {
-  display: block;
-}
+.menu-content.show { display: contents; }
 
 .menu-section {
   margin-bottom: 1rem;
@@ -904,15 +907,20 @@ button:hover,
 .menu-section h4 {
   font-family: "Cal Sans", sans-serif;
   color: #ccff00;
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
+  font-size: 0.95rem;
+  margin: 0 0 0.5rem 0;
+  font-weight: 700;
+  text-align: center;
 }
 
 .menu-section ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .menu-section li {
@@ -920,16 +928,31 @@ button:hover,
 }
 
 .menu-section a {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
-  transition: color 0.3s ease;
-  font-size: 0.8rem;
-  display: block;
-  padding: 0.25rem 0;
+  transition: all 0.2s ease;
+  font-size: 0.92rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.9rem;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  width: 100%;
+  max-width: 260px;
+  margin: 0 auto;
+}
+
+/* margen inferior extra para el botón Homepage */
+.menu-content a[href="index.html"] {
+  margin-bottom: 1.5rem;
 }
 
 .menu-section a:hover {
   color: #ccff00;
+  border-color: #ccff00;
+  box-shadow: 0 4px 18px rgba(204,255,0,0.15);
 }
 
 .footer-bottom {
@@ -977,6 +1000,12 @@ button:hover,
 .social-link svg {
   width: 14px;
   height: 14px;
+}
+
+/* Asegurar alineación en todos los carruseles */
+.carousel-indicators {
+  display: flex;
+  align-items: center;
 }
 
 /* Responsive del footer ultra compacto */

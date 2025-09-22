@@ -36,59 +36,66 @@ document.addEventListener("DOMContentLoaded", () => {
   }, { passive: true });
 
   // ---------------------------
-  // Scroll balls navigation
+  // Scroll balls: navegación y activación por scroll
   // ---------------------------
-  const balls = document.querySelectorAll(".scroll-balls .ball[data-section]");
+  const balls = document.querySelectorAll('.scroll-balls .ball[data-section]');
   let isManualScroll = false;
 
-  function updateActiveBall() {
-    if (isManualScroll) return;
-
-    const scrollY = window.scrollY + window.innerHeight / 2;
-    let activeId = null;
-
+  function setActiveBallById(activeId) {
     balls.forEach(ball => {
-      const section = document.getElementById(ball.dataset.section);
-      if (!section) return;
-
-      const rect = section.getBoundingClientRect();
-      const top = rect.top + window.scrollY;
-      const bottom = rect.bottom + window.scrollY;
-
-      if (scrollY >= top && scrollY < bottom) {
-        activeId = ball.dataset.section;
-      }
-    });
-
-    balls.forEach(ball => {
-      ball.classList.toggle("active", ball.dataset.section === activeId);
+      ball.classList.toggle('active', ball.dataset.section === activeId);
     });
   }
 
+  // Click para navegar suavemente
   balls.forEach(ball => {
-    ball.addEventListener("click", e => {
+    ball.addEventListener('click', e => {
       e.preventDefault();
-      isManualScroll = true;
-
       const section = document.getElementById(ball.dataset.section);
-      if (section) {
-        section.scrollIntoView({
-          behavior: "smooth",
-          block: "center"
-        });
-
-        balls.forEach(b => b.classList.remove("active"));
-        ball.classList.add("active");
-
-        setTimeout(() => {
-          isManualScroll = false;
-        }, 1000);
-      }
+      if (!section) return;
+      isManualScroll = true;
+      section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setActiveBallById(ball.dataset.section);
+      setTimeout(() => { isManualScroll = false; }, 1000);
     });
   });
 
-  window.addEventListener("scroll", updateActiveBall);
-  updateActiveBall();
+  // Activación con IntersectionObserver
+  const observedSections = [];
+  balls.forEach(ball => {
+    const sec = document.getElementById(ball.dataset.section);
+    if (sec) observedSections.push(sec);
+  });
+
+  if (observedSections.length > 0 && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      if (isManualScroll) return;
+      let best = null;
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          if (!best || en.intersectionRatio > best.intersectionRatio) best = en;
+        }
+      });
+      if (best) setActiveBallById(best.target.id);
+    }, { threshold: [0.25, 0.5, 0.75] });
+
+    observedSections.forEach(sec => io.observe(sec));
+  } else {
+    function updateActiveBallFallback() {
+      if (isManualScroll) return;
+      const mid = window.scrollY + window.innerHeight / 2;
+      let activeId = null;
+      observedSections.forEach(sec => {
+        const r = sec.getBoundingClientRect();
+        const top = r.top + window.scrollY;
+        const bottom = r.bottom + window.scrollY;
+        if (mid >= top && mid < bottom) activeId = sec.id;
+      });
+      if (activeId) setActiveBallById(activeId);
+    }
+    window.addEventListener('scroll', updateActiveBallFallback);
+    updateActiveBallFallback();
+  }
 
   // ---------------------------
   // Cursor Metaball
@@ -398,6 +405,20 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+  
+  // ---------------------------
+  // Footer: menú desplegable
+  // ---------------------------
+  (function setupFooterMenu(){
+    const toggleBtn = document.querySelector('.menu-toggle');
+    const menu = document.getElementById('footerMenu');
+    const icon = document.querySelector('.menu-icon');
+    if (!toggleBtn || !menu) return;
+    toggleBtn.addEventListener('click', () => {
+      const showing = menu.classList.toggle('show');
+      if (icon) icon.style.transform = showing ? 'rotate(180deg)' : 'rotate(0deg)';
+    });
+  })();
   
 });
 
