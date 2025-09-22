@@ -1684,3 +1684,9 @@ html, body { height: 100%; }
 
 
 
+/* Ocultar flechas del carrusel en <= 800px */
+@media (max-width: 800px) {
+  #proyectos-carousel .carousel-nav {
+    display: none !important;
+  }
+}
