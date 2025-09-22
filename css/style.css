@@ -1539,7 +1539,7 @@ img, video{
 
 #sobre-mi .btn-secundario:hover { border-color: #ccff00; }
 
-#sobre-mi .chip-group { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+#sobre-mi .chip-group { display: flex; flex-wrap: wrap; gap: 0.6rem; padding: 1em; }
 
 #sobre-mi .chip {
   background: rgba(255, 255, 255, 0.08);
