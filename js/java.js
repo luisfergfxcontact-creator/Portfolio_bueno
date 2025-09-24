@@ -311,6 +311,120 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     updateCarousel(0);
+
+    // Click en slide activo para pantalla completa (imágenes y videos)
+    const openProjector = (() => {
+      let overlay;
+      let content;
+      let closeBtn;
+      function ensureOverlay() {
+        if (overlay) return overlay;
+        overlay = document.createElement('div');
+        overlay.className = 'lightbox-overlay';
+        overlay.style.position = 'fixed';
+        overlay.style.inset = '0';
+        overlay.style.background = 'rgba(0,0,0,0.9)';
+        overlay.style.display = 'flex';
+        overlay.style.alignItems = 'center';
+        overlay.style.justifyContent = 'center';
+        overlay.style.zIndex = '2147483646';
+        overlay.style.opacity = '0';
+        overlay.style.transition = 'opacity .2s ease';
+
+        content = document.createElement('div');
+        content.style.maxWidth = '92vw';
+        content.style.maxHeight = '92vh';
+        content.style.display = 'flex';
+        content.style.alignItems = 'center';
+        content.style.justifyContent = 'center';
+
+        closeBtn = document.createElement('button');
+        closeBtn.textContent = '✕';
+        closeBtn.setAttribute('aria-label', 'Cerrar');
+        closeBtn.style.position = 'fixed';
+        closeBtn.style.top = '16px';
+        closeBtn.style.right = '20px';
+        closeBtn.style.color = '#fff';
+        closeBtn.style.background = 'transparent';
+        closeBtn.style.border = 'none';
+        closeBtn.style.fontSize = '28px';
+        closeBtn.style.cursor = 'pointer';
+
+        overlay.appendChild(content);
+        overlay.appendChild(closeBtn);
+
+        function close() {
+          overlay.style.opacity = '0';
+          setTimeout(() => {
+            document.body.classList.remove('is-showreel-open');
+            overlay.remove();
+          }, 180);
+          document.removeEventListener('keydown', onKey);
+        }
+
+        function onKey(e){ if (e.key === 'Escape') close(); }
+
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+        closeBtn.addEventListener('click', () => close());
+        document.addEventListener('keydown', onKey);
+
+        return overlay;
+      }
+
+      function openFromSlide(slide){
+        const ov = ensureOverlay();
+        // Limpiar contenido
+        content.innerHTML = '';
+
+        let nodeToShow;
+        if (slide.tagName.toLowerCase() === 'img') {
+          const img = document.createElement('img');
+          img.src = slide.getAttribute('src');
+          img.alt = slide.getAttribute('alt') || '';
+          img.style.maxWidth = '100%';
+          img.style.maxHeight = '100%';
+          img.style.objectFit = 'contain';
+          nodeToShow = img;
+        } else if (slide.tagName.toLowerCase() === 'video') {
+          const video = document.createElement('video');
+          const source = slide.querySelector('source');
+          if (source) {
+            video.src = source.getAttribute('src') || '';
+          }
+          video.controls = true;
+          video.autoplay = true;
+          video.muted = false;
+          video.playsInline = true;
+          video.style.maxWidth = '100%';
+          video.style.maxHeight = '100%';
+          video.style.objectFit = 'contain';
+          nodeToShow = video;
+        }
+
+        if (!nodeToShow) return;
+        content.appendChild(nodeToShow);
+        document.body.appendChild(ov);
+        requestAnimationFrame(() => { ov.style.opacity = '1'; });
+
+        // Intentar fullscreen del documento para incluir el canvas del cursor
+        const targetFS = document.documentElement;
+        const req = targetFS.requestFullscreen || targetFS.webkitRequestFullscreen || targetFS.msRequestFullscreen;
+        try { req && req.call(targetFS); } catch(_){}
+      }
+
+      return { openFromSlide };
+    })();
+
+    container.addEventListener('click', (e) => {
+      const active = container.querySelector('.carousel-slide.active');
+      if (!active) return;
+      // Evitar que clic en controles/indicadores dispare el visor
+      const isIndicator = e.target.closest('.carousel-indicators');
+      const isNav = e.target.closest('.carousel-nav');
+      if (isIndicator || isNav) return;
+      if (!e.target.closest('.carousel-slide')) return;
+      openProjector.openFromSlide(active);
+    });
   })();
 
   // --- Carruseles múltiples e independientes con clase .carrusel ---
@@ -369,6 +483,119 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     startAutoplay();
+
+    // Click en slide activo para pantalla completa (reutiliza mismo patrón)
+    const openProjector = (() => {
+      let overlay;
+      let content;
+      let closeBtn;
+      function ensureOverlay() {
+        if (overlay) return overlay;
+        overlay = document.createElement('div');
+        overlay.className = 'lightbox-overlay';
+        overlay.style.position = 'fixed';
+        overlay.style.inset = '0';
+        overlay.style.background = 'rgba(0,0,0,0.9)';
+        overlay.style.display = 'flex';
+        overlay.style.alignItems = 'center';
+        overlay.style.justifyContent = 'center';
+        overlay.style.zIndex = '2147483646';
+        overlay.style.opacity = '0';
+        overlay.style.transition = 'opacity .2s ease';
+
+        content = document.createElement('div');
+        content.style.maxWidth = '92vw';
+        content.style.maxHeight = '92vh';
+        content.style.display = 'flex';
+        content.style.alignItems = 'center';
+        content.style.justifyContent = 'center';
+
+        closeBtn = document.createElement('button');
+        closeBtn.textContent = '✕';
+        closeBtn.setAttribute('aria-label', 'Cerrar');
+        closeBtn.style.position = 'fixed';
+        closeBtn.style.top = '16px';
+        closeBtn.style.right = '20px';
+        closeBtn.style.color = '#fff';
+        closeBtn.style.background = 'transparent';
+        closeBtn.style.border = 'none';
+        closeBtn.style.fontSize = '28px';
+        closeBtn.style.cursor = 'pointer';
+
+        overlay.appendChild(content);
+        overlay.appendChild(closeBtn);
+
+        function close() {
+          overlay.style.opacity = '0';
+          setTimeout(() => {
+            document.body.classList.remove('is-showreel-open');
+            overlay.remove();
+          }, 180);
+          document.removeEventListener('keydown', onKey);
+        }
+
+        function onKey(e){ if (e.key === 'Escape') close(); }
+
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+        closeBtn.addEventListener('click', () => close());
+        document.addEventListener('keydown', onKey);
+
+        return overlay;
+      }
+
+      function openFromSlide(slide){
+        const ov = ensureOverlay();
+        content.innerHTML = '';
+
+        let nodeToShow;
+        if (slide.tagName.toLowerCase() === 'img') {
+          const img = document.createElement('img');
+          img.src = slide.getAttribute('src');
+          img.alt = slide.getAttribute('alt') || '';
+          img.style.maxWidth = '100%';
+          img.style.maxHeight = '100%';
+          img.style.objectFit = 'contain';
+          nodeToShow = img;
+        } else if (slide.tagName.toLowerCase() === 'video') {
+          const video = document.createElement('video');
+          const source = slide.querySelector('source');
+          if (source) {
+            video.src = source.getAttribute('src') || '';
+          }
+          video.controls = true;
+          video.autoplay = true;
+          video.muted = false;
+          video.playsInline = true;
+          video.style.maxWidth = '100%';
+          video.style.maxHeight = '100%';
+          video.style.objectFit = 'contain';
+          nodeToShow = video;
+        }
+
+        if (!nodeToShow) return;
+        content.appendChild(nodeToShow);
+        document.body.appendChild(ov);
+        requestAnimationFrame(() => { ov.style.opacity = '1'; });
+
+        // Intentar fullscreen del documento para incluir el canvas del cursor
+        const targetFS = document.documentElement;
+        const req = targetFS.requestFullscreen || targetFS.webkitRequestFullscreen || targetFS.msRequestFullscreen;
+        try { req && req.call(targetFS); } catch(_){}
+      }
+
+      return { openFromSlide };
+    })();
+
+    carrusel.addEventListener('click', (e) => {
+      const slidesContainer = carrusel.querySelector('.carousel-slides');
+      if (!slidesContainer) return;
+      const active = carrusel.querySelector('.carousel-slide.active');
+      if (!active) return;
+      const isIndicator = e.target.closest('.carousel-indicators');
+      if (isIndicator) return;
+      if (!e.target.closest('.carousel-slide')) return;
+      openProjector.openFromSlide(active);
+    });
   });
 
   // ---------------------------
@@ -453,6 +680,167 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         if (icon) icon.style.transform = 'rotate(0deg)';
       }
+    });
+  })();
+
+  // ---------------------------
+  // Header: enlaces funcionales en páginas no home + menú Proyectos
+  // ---------------------------
+  (function setupHeaderNavForNonHome(){
+    const isIndex = window.location.pathname.endsWith("index.html") || window.location.pathname === "/";
+    const nav = document.querySelector('.main-nav');
+    if (!nav) return;
+    const links = nav.querySelectorAll('.nav-links a');
+
+    // Reescribir enlaces para no home
+    if (!isIndex) {
+      links.forEach(a => {
+        const txt = (a.textContent || '').trim().toLowerCase();
+        if (txt.startsWith('sobre')) {
+          a.setAttribute('href', '/index.html#sobre-mi');
+        } else if (txt.startsWith('contáct') || txt.startsWith('contact')) {
+          a.setAttribute('href', '/index.html#contacto');
+        }
+      });
+    }
+
+    // Menú Proyectos en header (estilo y clases del footer)
+    let projectsLink = Array.from(links).find(a => {
+      const txt = (a.textContent || '').trim().toLowerCase();
+      const href = (a.getAttribute('href') || '').toLowerCase();
+      return txt.includes('proyectos') || href.includes('#proyectos');
+    });
+    if (!projectsLink) return;
+
+    // Crear contenedor con mismas clases que footer
+    let open = false;
+    const headerMenu = document.createElement('div');
+    headerMenu.className = 'menu-content';
+    headerMenu.id = 'headerProjectsMenu';
+    const panel = document.createElement('div');
+    panel.className = 'menu-panel';
+    // Asegurar que el panel no se recorte en cabeceras y que tenga tamaño adecuado
+    panel.style.position = 'fixed';
+    panel.style.minWidth = '260px';
+    panel.style.maxWidth = 'min(92vw, 420px)';
+    panel.style.overflow = 'visible';
+    // Forzar fondo y padding como el footer por si los estilos no aplican en esta página
+    panel.style.background = 'rgba(8, 8, 8, 0.98)';
+    panel.style.backdropFilter = 'blur(24px)';
+    panel.style.border = '1px solid rgba(255, 255, 255, 0.14)';
+    panel.style.borderRadius = '14px';
+    panel.style.padding = '12px 14px';
+    panel.style.boxShadow = '0 16px 44px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(204, 255, 0, 0.08)';
+    const section = document.createElement('div');
+    section.className = 'menu-section';
+    section.style.width = '100%';
+    const list = document.createElement('ul');
+    list.style.width = '100%';
+
+    const items = [
+      { label: 'Homepage', href: 'index.html' },
+      { label: 'Hard Surface', href: 'hardsurface.html' },
+      { label: 'Estudios del Corazón', href: 'corazon.html' },
+      { label: 'Modelado Orgánico', href: 'organico.html' },
+      { label: 'Animaciones', href: 'animaciones.html' },
+      { label: 'TFG', href: 'TFG.html' },
+    ];
+
+    items.forEach(it => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.textContent = it.label;
+      a.href = it.href;
+      a.style.width = '100%';
+      a.style.maxWidth = '260px';
+      a.style.margin = '0.25rem auto';
+      li.appendChild(a);
+      list.appendChild(li);
+    });
+
+    section.appendChild(list);
+    panel.appendChild(section);
+    headerMenu.appendChild(panel);
+    document.body.appendChild(headerMenu);
+
+    function positionPanel() {
+      const rect = projectsLink.getBoundingClientRect();
+      const margin = 8;
+      let desiredLeft = rect.left + rect.width / 2;
+      // Medir ancho estimado
+      const panelWidth = Math.max(panel.offsetWidth || 260, 260);
+      const half = panelWidth / 2;
+      let transform = 'translate(-50%, 0)';
+      let left = desiredLeft;
+      if (desiredLeft - half < margin) {
+        left = margin; transform = 'translate(0, 0)';
+      } else if (desiredLeft + half > window.innerWidth - margin) {
+        left = window.innerWidth - margin; transform = 'translate(-100%, 0)';
+      }
+      panel.style.left = left + 'px';
+      panel.style.top = (rect.bottom + margin) + 'px';
+      panel.style.bottom = '';
+      panel.style.transform = transform;
+      panel.style.zIndex = '2147483646';
+      panel.style.pointerEvents = 'auto';
+    }
+
+    function showPanel(){
+      headerMenu.classList.add('show');
+      panel.classList.add('open');
+      // Asegurar panel visible y posicionado
+      positionPanel();
+      // Forzar cálculo y fijar min-height para que el fondo abarque la lista
+      panel.style.height = 'auto';
+      const desiredHeight = panel.scrollHeight;
+      panel.style.minHeight = desiredHeight + 'px';
+      // Asegurar visibilidad del cursor metaball
+      const cursor = document.getElementById('metaball-cursor');
+      if (cursor) {
+        cursor.style.zIndex = '2147483647';
+        cursor.style.display = 'block';
+      }
+      open = true;
+      document.addEventListener('click', onDocClick, { capture: true });
+      window.addEventListener('resize', positionPanel);
+      window.addEventListener('scroll', positionPanel, { passive: true });
+    }
+
+    function hidePanel(){
+      headerMenu.classList.remove('show');
+      panel.classList.remove('open');
+      open = false;
+      document.removeEventListener('click', onDocClick, { capture: true });
+      window.removeEventListener('resize', positionPanel);
+      window.removeEventListener('scroll', positionPanel);
+    }
+
+    function onDocClick(e){
+      if (panel.contains(e.target)) return;
+      const anchor = e.target.closest('.main-nav .nav-links a');
+      if (anchor && (anchor === projectsLink || ((anchor.textContent||'').toLowerCase().includes('proyectos')))) {
+        return; // el click es sobre el mismo botón proyectos
+      }
+      hidePanel();
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && open) hidePanel();
+    });
+
+    // Delegación en la nav para mayor robustez
+    nav.addEventListener('click', (e) => {
+      const anchor = e.target.closest('.nav-links a');
+      if (!anchor) return;
+      const txt = (anchor.textContent || '').trim().toLowerCase();
+      const href = (anchor.getAttribute('href') || '').toLowerCase();
+      const isProjects = txt.includes('proyectos') || href.includes('#proyectos');
+      if (!isProjects) return;
+      // En el homepage: permitir el scroll al carrusel y no abrir menú
+      if (isIndex) { hidePanel(); return; }
+      // En páginas internas, actuamos como disparador del menú
+      e.preventDefault();
+      if (open) hidePanel(); else showPanel();
     });
   })();
   
