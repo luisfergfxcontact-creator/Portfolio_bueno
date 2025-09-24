@@ -1,3 +1,31 @@
+// Auto cache-busting basado en version.json
+(async () => {
+  try {
+    const res = await fetch('version.json?ts=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) throw new Error('no version');
+    const data = await res.json();
+    const version = String(data?.version || '0');
+    const prev = localStorage.getItem('app_version');
+    if (prev !== version) {
+      localStorage.setItem('app_version', version);
+      // bustear CSS en caliente
+      document.querySelectorAll('link[rel="stylesheet"][href]').forEach(link => {
+        try {
+          const u = new URL(link.href, location.href);
+          u.searchParams.set('v', version);
+          link.href = u.toString();
+        } catch (_) {}
+      });
+      // recargar con ?v para bustear JS en siguiente carga
+      const url = new URL(location.href);
+      if (url.searchParams.get('v') !== version) {
+        url.searchParams.set('v', version);
+        location.replace(url.toString());
+      }
+    }
+  } catch (_) {}
+})();
+
 console.log("Portafolio cargado correctamente");
 
 document.addEventListener("DOMContentLoaded", () => {

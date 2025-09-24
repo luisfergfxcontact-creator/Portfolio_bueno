@@ -1,0 +1,31 @@
+name: Update version.json
+on:
+  push:
+    branches: [ main ]
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Write version.json
+        run: |
+          cd "${{ github.workspace }}"
+          V="$(date +'%Y.%m.%d-%H%M')-$(git rev-parse --short HEAD)"
+          echo "{ \"version\": \"${V}\" }" > version.json
+          cat version.json
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@users.noreply.github.com"
+          git add version.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: bump version.json"
+            git push
+          fi
+
