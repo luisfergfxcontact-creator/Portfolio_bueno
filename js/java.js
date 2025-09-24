@@ -360,6 +360,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateCarousel(0);
 
+    // Ya no usamos posicionamiento fijo; el icono está en un contenedor inline junto al h1
+
     // Click en slide activo para pantalla completa (imágenes y videos)
     const openProjector = (() => {
       let overlay;
@@ -531,6 +533,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     startAutoplay();
+
+    // (Revertido) No interceptamos el scroll dentro de carruseles
 
     // Click en slide activo para pantalla completa (reutiliza mismo patrón)
     const openProjector = (() => {
@@ -1060,4 +1064,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 })();
+
+// (Revertido) Sin interceptor global de scroll
 

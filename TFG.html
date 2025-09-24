@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TFG - Minimal Motion & Sound/Music Studies</title>
+
+  <link rel="icon" href="/media/logo.png" type="image/x-icon" sizes="80x80">
+  <link rel="stylesheet" href="/css/TFG.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/output.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <nav class="main-nav">
+    <a href="/index.html">
+      <div class="logo">
+        <h2>LuisFer.
+      </div>
+      </h2>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="/index.html#sobre-mi">Sobre mí</a></li>
+      <li><a href="/index.html#contacto" class="cta">Contáctame</a></li>
+    </ul>
+  </nav>
+  <div id="simple-loader"></div>
+
+  <canvas id="metaball-cursor"></canvas>
+
+  <!-- Intro fullscreen con el case study como en el homepage -->
+  <section id="intro-video">
+    <video autoplay muted loop playsinline>
+      <source src="/media/CASE_STUDY_MINIMAL_MOTION.mp4" type="video/mp4" />
+      Tu navegador no soporta la etiqueta de video.
+    </video>
+    <div class="video-overlay"></div>
+    <header class="marquee">
+      <div class="marquee__inner">
+        <div class="marquee__block">
+          <span>TFG · Minimal Motion</span><span class="dot">·</span>
+          <span>Sound/Music <span class="highlight">Studies</span></span><span class="dot">·</span>
+        </div>
+        <div class="marquee__block">
+          <span>TFG · Minimal Motion</span><span class="dot">·</span>
+          <span>Sound/Music <span class="highlight">Studies</span></span><span class="dot">·</span>
+        </div>
+      </div>
+    </header>
+    <div class="showreel-cta">
+      <button id="open-showreel" class="btn-primario btn-showreel">Ver video completo</button>
+    </div>
+  </section>
+  <!-- Modal video fullscreen reutilizando estilos globales -->
+  <div id="showreel-modal" class="showreel-modal" aria-hidden="true" role="dialog" aria-label="Video completo">
+    <div class="showreel-content">
+      <video id="showreel-video" controls preload="auto">
+        <source src="/media/CASE_STUDY_MINIMAL_MOTION.mp4" type="video/mp4" />
+        Tu navegador no soporta la etiqueta de video.
+      </video>
+      <button id="close-showreel" class="btn-close" aria-label="Cerrar video">✕</button>
+    </div>
+    <div class="showreel-backdrop"></div>
+  </div>
+
+  <div id="2">
+    <section class="avioneta">
+      <div class="txt1">
+        <h1>Minimal <span class="highlight">Motion</span></h1>
+        <p>
+          Estudios de movimiento mínimo con foco en timing, repetición y micro-variaciones. Generado y ejecutado en TouchDesigner.
+        </p>
+      </div>
+
+      <div class="carrusel">
+        <div class="carousel-slides">
+          <video class="carousel-slide active" autoplay muted loop playsinline>
+            <source src="/media/CASE_STUDY_MINIMAL_MOTION.mp4" type="video/mp4">
+          </video>
+          <video class="carousel-slide" autoplay muted loop playsinline>
+            <source src="/media/FinalRender_Week_06_FINAL.mp4" type="video/mp4">
+          </video>
+          <video class="carousel-slide" autoplay muted loop playsinline>
+            <source src="/media/VIDEO_PROMOCIONAL.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="carousel-indicators">
+          <div class="indicator active"></div>
+          <div class="indicator"></div>
+          <div class="indicator"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="3">
+    <section class="canoa">
+      <div class="txt1">
+        <h1>Sound <span class="highlight">Studies</span></h1>
+        <p>
+          Visuales reactivos a sonido: pruebas con FFT y bandas, explorando forma, repetición y contraste.
+        </p>
+      </div>
+
+      <div class="carrusel">
+        <div class="carousel-slides">
+          <video class="carousel-slide active" autoplay muted loop playsinline>
+            <source src="/media/SOUND STUDY1.mp4" type="video/mp4">
+          </video>
+          <video class="carousel-slide" autoplay muted loop playsinline>
+            <source src="/media/SOUND STUDIES2.mp4" type="video/mp4">
+          </video>
+          <video class="carousel-slide" autoplay muted loop playsinline>
+            <source src="/media/SOUND STUDIES3.mp4" type="video/mp4">
+          </video>
+          <video class="carousel-slide" autoplay muted loop playsinline>
+            <source src="/media/SOUND STUDIES4.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="carousel-indicators">
+          <div class="indicator active"></div>
+          <div class="indicator"></div>
+          <div class="indicator"></div>
+          <div class="indicator"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="4">
+    <section class="cascos">
+      <div class="txt1">
+        <h1>Music <span class="highlight">Studies</span></h1>
+        <p>
+          Experimentos de visualización musical: líneas, generativos y compases; enfoque en composición y lectura rítmica.
+        </p>
+      </div>
+      <div class="carrusel">
+        <div class="carousel-slides">
+          <video class="carousel-slide active" autoplay muted loop playsinline>
+            <source src="/media/MUSIC STUDY 1.mp4" type="video/mp4">
+          </video>
+          <video class="carousel-slide" autoplay muted loop playsinline>
+            <source src="/media/MUSIC STUDY2.mp4" type="video/mp4">
+          </video>
+          <video class="carousel-slide" autoplay muted loop playsinline>
+            <source src="/media/MUSIC STUDY3.mp4" type="video/mp4">
+          </video>
+          <video class="carousel-slide" autoplay muted loop playsinline>
+            <source src="/media/MUSIC STUDY4.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="carousel-indicators">
+          <div class="indicator active"></div>
+          <div class="indicator"></div>
+          <div class="indicator"></div>
+          <div class="indicator"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="fixed inset-0 pointer-events-none z-50">
+    <canvas id="noise-canvas" class="w-full h-full"></canvas>
+  </div>
+
+  <footer class="compact-footer">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <h3>LuisFer.</h3>
+        <p>3D Generalist & Graphic Designer</p>
+      </div>
+      <div class="footer-menu">
+        <button class="menu-toggle">
+          <span>Menú</span>
+          <svg class="menu-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7 10l5 5 5-5z"/>
+          </svg>
+        </button>
+        <div class="menu-content" id="footerMenu">
+          <div class="menu-panel">
+            <div class="menu-section">
+              <ul>
+                <li><a href="index.html">Homepage</a></li>
+                <h4>Proyectos</h4>
+                <li><a href="hardsurface.html">Hard Surface</a></li>
+                <li><a href="corazon.html">Estudios del Corazón</a></li>
+                <li><a href="organico.html">Modelado Orgánico</a></li>
+                <li><a href="animaciones.html">Animaciones</a></li>
+                <li><a href="TFG.html">TFG</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Luis Fernando Martínez</p>
+    </div>
+  </footer>
+
+  <div class="scroll-balls-container">
+    <div class="scroll-balls">
+      <a href="#intro-video" class="ball" data-section="intro-video"></a>
+      <a href="#2" class="ball" data-section="2"></a>
+      <a href="#3" class="ball" data-section="3"></a>
+      <a href="#4" class="ball" data-section="4"></a>
+    </div>
+  </div>
+
+  <script src="js/java.js?v=bootstrap1"></script>
+</body>
+</html>
+

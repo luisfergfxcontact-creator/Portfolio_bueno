@@ -516,7 +516,8 @@ button:hover,
 }
 
 /* Estilo glass/neón para el título Proyectos (coherente con header/CTA) */
-#proyectos-carousel > h1 {
+#proyectos-carousel > h1,
+#proyectos-carousel .title-row > h1 {
   position: relative;
   display: flex;
   align-items: center;
@@ -530,7 +531,28 @@ button:hover,
   text-shadow: 0 0 12px rgba(204, 255, 0, 0.25);
 }
 
-#proyectos-carousel > h1::after {
+/* Icono independiente, posicionado respecto al centro del carrusel */
+#proyectos-carousel .click-cue {
+  position: absolute;
+  transform: none;
+  top: 18%;
+  width: 56px;
+  height: 56px;
+  filter: drop-shadow(0 0 10px rgba(204,255,0,0.35));
+  animation: cue-pulse 1.6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1000;
+  display: block;
+}
+/* se redefinió .click-cue arriba para estar fuera del chip */
+
+@keyframes cue-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.12); opacity: 1; }
+}
+
+#proyectos-carousel > h1::after,
+#proyectos-carousel .title-row > h1::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -1163,6 +1185,7 @@ button:hover,
 
   /* Carruseles genéricos */
   .carrusel { height: 56vh; }
+.carrusel { overflow: hidden; overscroll-behavior: contain; }
   .carousel-indicators { gap: 1rem; }
   .carousel-indicators .indicator { width: 0.9em; height: 0.9em; }
 

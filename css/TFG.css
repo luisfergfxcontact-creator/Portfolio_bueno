@@ -17,3 +17,41 @@
 /* Asegurar que los carruseles no sobrepasen el menú */
 .carrusel { position: relative; z-index: 0; }
 
+/* Dimensiones y estilo consistentes con otras páginas */
+.avioneta, .canoa, .cascos {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+.txt1 {
+  max-width: 900px;
+  margin: 0 auto 1rem auto;
+  text-align: left;
+}
+
+.carrusel {
+  width: 100%;
+  height: 60vh;
+  border-radius: 18px;
+  overflow: hidden; /* sin scroll propio */
+}
+
+.carrusel .carousel-slides { position: relative; width: 100%; height: 100%; touch-action: pan-y; }
+.carrusel .carousel-slide { position: absolute; inset: 0; opacity: 0; transition: opacity .5s ease; }
+.carrusel .carousel-slide.active { opacity: 1; }
+.carrusel .carousel-slide video, .carrusel .carousel-slide img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+
+.carrusel .carousel-indicators { display: flex; justify-content: center; gap: 1rem; margin-top: .8rem; }
+.carrusel .carousel-indicators .indicator { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,.5); }
+.carrusel .carousel-indicators .indicator.active { background: #ccff00; }
+
+@media (max-width: 1024px) {
+  .carrusel { height: 56vh; }
+}
+
+@media (max-width: 480px) {
+  .carrusel { height: 50vh; }
+}
+
