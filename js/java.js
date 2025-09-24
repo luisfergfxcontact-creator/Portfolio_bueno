@@ -26,6 +26,26 @@
   } catch (_) {}
 })();
 
+// Aplicar siempre el parámetro de versión a los CSS en cada carga (por si vienen de bfcache)
+(function applyVersionParamToAssets(){
+  function apply() {
+    const url = new URL(location.href);
+    const v = url.searchParams.get('v') || localStorage.getItem('app_version');
+    if (!v) return;
+    document.querySelectorAll('link[rel="stylesheet"][href]').forEach(link => {
+      try {
+        const u = new URL(link.href, location.href);
+        if (u.searchParams.get('v') !== v) {
+          u.searchParams.set('v', v);
+          link.href = u.toString();
+        }
+      } catch(_){}
+    });
+  }
+  apply();
+  window.addEventListener('pageshow', apply);
+})();
+
 console.log("Portafolio cargado correctamente");
 
 document.addEventListener("DOMContentLoaded", () => {
