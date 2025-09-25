@@ -333,8 +333,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentIndex = 0;
 
     function updateCarousel(index) {
+      console.log('Updating carousel to index:', index, 'Total slides:', slides.length);
       slides.forEach((slide, i) => {
-        slide.classList.toggle('active', i === index);
+        const isActive = i === index;
+        slide.classList.toggle('active', isActive);
+        console.log(`Slide ${i} (${slide.className}): active=${isActive}`);
       });
       indicators.forEach((indicator, i) => {
         indicator.classList.toggle('active', i === index);
@@ -359,6 +362,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     updateCarousel(0);
+    
+    // Debug: verificar que todos los slides existen
+    console.log('Total slides found:', slides.length);
+    slides.forEach((slide, i) => {
+      console.log(`Slide ${i}:`, slide.className, slide);
+    });
 
     // Ya no usamos posicionamiento fijo; el icono está en un contenedor inline junto al h1
 

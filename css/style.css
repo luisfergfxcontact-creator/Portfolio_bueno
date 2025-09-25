@@ -259,8 +259,9 @@ body.input-mouse * { cursor: none; }
 /* Ocultar el cursor por defecto en elementos interactivos */
 a:hover,
 button:hover,
-.clickable:hover {
-  cursor: none;
+.clickable:hover,
+.carousel-indicators .indicator:hover {
+  cursor: none !important;
 }
 
 
@@ -807,13 +808,68 @@ button:hover,
  
 }
 
+/* Asegurar que el contenido del slide sea clicable y visible por encima del video */
+#proyectos-carousel .carousel-slide .content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 2;
+  text-align: center;
+  padding: 1rem;
+}
+
+#proyectos-carousel .carousel-slide.active .content { opacity: 1; }
+
+/* Forzar que el slide 5 funcione exactamente igual que el slide 4 */
+#proyectos-carousel .carousel-slide.slide5 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  top: 0;
+  left: 0;
+}
+
+#proyectos-carousel .carousel-slide.slide5.active {
+  opacity: 1;
+  z-index: 5;
+}
+
+#proyectos-carousel .carousel-slide.slide5 video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Mostrar overlay solo en hover para desktop */
+@media (hover: hover) and (pointer: fine) {
+  #proyectos-carousel .carousel-slide .content { opacity: 0; }
+  #proyectos-carousel .carousel-slide.active:hover .content { opacity: 1; }
+}
+
 .carousel-indicators .indicator {
   width: 1.5em;
   height: 1.5em;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.5);
   transition: background-color 0.3s ease;
-
+  cursor: none !important;
+  pointer-events: auto;
 }
 
 .carousel-indicators .indicator.active {
