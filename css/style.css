@@ -1344,8 +1344,6 @@ img, video{
 .carousel-slide.active {
     opacity: 1;
     z-index: 5;
-    display: flex
-;
 }
 /* Permitir hover para mostrar overlay "Ver más" dentro del carrusel del homepage */
 #proyectos-carousel .metaball-mask {
