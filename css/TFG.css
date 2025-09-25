@@ -1,3 +1,8 @@
+/* Ensanchar header en pantallas medianas (evitar colapso ~1360px) */
+@media (max-width: 1440px) and (min-width: 1025px) {
+  .main-nav { width: 55%; }
+  .nav-links { gap: 1.2rem; }
+}
 /* Overrides menú footer unificado (TFG) */
 .compact-footer, .footer-main, .footer-menu { overflow: visible; }
 .footer-menu { z-index: 1000001; }
@@ -29,29 +34,85 @@
   max-width: 900px;
   margin: 0 auto 1rem auto;
   text-align: left;
+  padding-bottom: 4em;
+}
+
+/* Asegurar legibilidad de descripciones en TFG */
+.txt1 p {
+  color: #ffffff;
+  line-height: 1.6;
+  margin: 1em 0 0 0;
+  font-size: 2em;
+}
+
+/* Tipografía y tamaños como en otras páginas */
+.txt1 h1 { font-size: 4em; }
+
+@media (max-width: 1024px) {
+  .txt1 h1 { font-size: 2.2rem; }
+  .txt1 p { font-size: 1.05rem; line-height: 1.7; margin: 0.5em 0 0 0; }
+}
+
+@media (max-width: 768px) {
+  .txt1 h1 { font-size: 1.8rem; }
+  .txt1 p { font-size: 1rem; }
+  .txt1 { padding-bottom: 2em; }
+}
+
+/* Header responsive específico en TFG (refuerza reglas globales) */
+@media (max-width: 1200px) {
+  .main-nav { width: 60%; padding: 0.8rem 2rem; }
+}
+
+@media (max-width: 1024px) {
+  .main-nav { width: 75%; }
+  #intro-video header { top: 24%; }
+}
+
+@media (max-width: 768px) {
+  .main-nav {
+    width: calc(100% - 2rem);
+    padding: 0.5rem 1rem;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  #intro-video header { top: 26%; }
+}
+
+@media (max-width: 480px) {
+  .main-nav {
+    width: calc(100% - 1.5rem);
+    padding: 0.4rem 0.8rem;
+    top: 8px;
+  }
+  #intro-video header { top: 28%; }
 }
 
 .carrusel {
   width: 100%;
-  height: 60vh;
   border-radius: 18px;
-  overflow: hidden; /* sin scroll propio */
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+  /* el alto del viewport se aplica a .carousel-slides para no crear scroll interno */
 }
 
-.carrusel .carousel-slides { position: relative; width: 100%; height: 100%; touch-action: pan-y; }
+/* El viewport del carrusel contiene las slides y controla el overflow */
+.carrusel .carousel-slides { position: relative; width: 100%; height: 60vh; overflow: hidden; border-radius: inherit; touch-action: pan-y; }
 .carrusel .carousel-slide { position: absolute; inset: 0; opacity: 0; transition: opacity .5s ease; }
 .carrusel .carousel-slide.active { opacity: 1; }
 .carrusel .carousel-slide video, .carrusel .carousel-slide img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
 
-.carrusel .carousel-indicators { display: flex; justify-content: center; gap: 1rem; margin-top: .8rem; }
-.carrusel .carousel-indicators .indicator { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,.5); }
+.carrusel .carousel-indicators { display: flex; justify-content: center; gap: 1.5em; margin: 0; height: 7em; }
+.carrusel .carousel-indicators .indicator { width: 1.5em; height: 1.5em; border-radius: 50%; background: rgba(255,255,255,.5); transition: background-color .3s ease; }
 .carrusel .carousel-indicators .indicator.active { background: #ccff00; }
 
 @media (max-width: 1024px) {
-  .carrusel { height: 56vh; }
+  .carrusel .carousel-slides { height: 56vh; }
 }
 
 @media (max-width: 480px) {
-  .carrusel { height: 50vh; }
+  .carrusel .carousel-slides { height: 50vh; }
 }
 

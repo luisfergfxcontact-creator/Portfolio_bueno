@@ -1184,8 +1184,10 @@ button:hover,
   }
 
   /* Carruseles genéricos */
-  .carrusel { height: 56vh; }
-.carrusel { overflow: hidden; overscroll-behavior: contain; }
+  /* El alto se aplica al viewport interno para evitar scroll dentro del carrusel */
+  .carrusel .carousel-slides { height: 56vh; }
+  /* Permitir que el scroll vertical de la página no quede atrapado en carruseles */
+  .carrusel { overscroll-behavior: auto; }
   .carousel-indicators { gap: 1rem; }
   .carousel-indicators .indicator { width: 0.9em; height: 0.9em; }
 
@@ -1345,8 +1347,9 @@ img, video{
     display: flex
 ;
 }
-.metaball-mask {
-  pointer-events: none;
+/* Permitir hover para mostrar overlay "Ver más" dentro del carrusel del homepage */
+#proyectos-carousel .metaball-mask {
+  pointer-events: auto;
 }
 
 /* === Contacto === */
