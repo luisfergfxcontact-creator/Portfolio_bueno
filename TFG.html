@@ -36,7 +36,7 @@
 
   <!-- Intro fullscreen con el case study como en el homepage -->
   <section id="intro-video">
-    <video autoplay muted loop playsinline>
+    <video autoplay muted loop playsinline data-trim-start="2" data-trim-end="2">
       <source src="/media/CASE_STUDY_MINIMAL_MOTION.mp4" type="video/mp4" />
       Tu navegador no soporta la etiqueta de video.
     </video>
@@ -60,7 +60,7 @@
   <!-- Modal video fullscreen reutilizando estilos globales -->
   <div id="showreel-modal" class="showreel-modal" aria-hidden="true" role="dialog" aria-label="Video completo">
     <div class="showreel-content">
-      <video id="showreel-video" controls preload="auto">
+      <video id="showreel-video" controls preload="auto" data-trim-start="2" data-trim-end="2">
         <source src="/media/CASE_STUDY_MINIMAL_MOTION.mp4" type="video/mp4" />
         Tu navegador no soporta la etiqueta de video.
       </video>
@@ -85,20 +85,14 @@
 
       <div class="carrusel">
         <div class="carousel-slides">
-          <video class="carousel-slide active" autoplay muted loop playsinline>
-            <source src="/media/CASE_STUDY_MINIMAL_MOTION.mp4" type="video/mp4">
-          </video>
-          <video class="carousel-slide" autoplay muted loop playsinline>
-            <source src="/media/FinalRender_Week_06_FINAL.mp4" type="video/mp4">
-          </video>
-          <video class="carousel-slide" autoplay muted loop playsinline>
+        
+          <video class="carousel-slide" autoplay muted loop playsinline data-trim-start="2" data-trim-end="2" preload="auto">
             <source src="/media/VIDEO_PROMOCIONAL.mp4" type="video/mp4">
           </video>
         </div>
         <div class="carousel-indicators">
           <div class="indicator active"></div>
-          <div class="indicator"></div>
-          <div class="indicator"></div>
+         
         </div>
       </div>
     </section>

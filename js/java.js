@@ -177,6 +177,13 @@ document.addEventListener("DOMContentLoaded", () => {
       element.addEventListener("mouseleave", () => isHoveringInteractiveElement = false);
     });
 
+    // También considerar el área clicable del carrusel de proyectos como interactiva
+    const metaballClickableAreas = document.querySelectorAll('#proyectos-carousel .metaball-mask, #proyectos-carousel .metaball-deform, #proyectos-carousel .metaball-float');
+    metaballClickableAreas.forEach(area => {
+      area.addEventListener('mouseenter', () => { isHoveringInteractiveElement = true; });
+      area.addEventListener('mouseleave', () => { isHoveringInteractiveElement = false; });
+    });
+
     // Manejo de eventos de mouse y táctiles para móvil
     function updateTargetPosition(x, y) {
       target.x = x;
@@ -482,11 +489,27 @@ document.addEventListener("DOMContentLoaded", () => {
       const isNav = e.target.closest('.carousel-nav');
       if (isIndicator || isNav) return;
       if (!e.target.closest('.carousel-slide')) return;
+
+      // Nuevo: si el slide activo tiene un enlace en su overlay, navegar a ese href
+      const link = active.querySelector('.content a[href]');
+      if (link && link.getAttribute('href')) {
+        const href = link.getAttribute('href');
+        try {
+          window.location.href = href;
+        } catch(_) {
+          // Si por alguna razón no se puede navegar, abrimos el visor como fallback
+          openProjector.openFromSlide(active);
+        }
+        return;
+      }
+
+      // Fallback original: abrir visor a pantalla completa
       openProjector.openFromSlide(active);
     });
   })();
 
-  // --- Carruseles múltiples e independientes con clase .carrusel ---
+  // ---------------------------
+  // Carruseles múltiples e independientes con clase .carrusel ---
   // Con autoplay, con pausa y efecto agrandar en hover, excepto el metaball
   document.querySelectorAll('.carrusel').forEach(carrusel => {
     // Excluir el metaball especial
@@ -1075,4 +1098,34 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 // (Revertido) Sin interceptor global de scroll
+
+  // ---------------------------
+  // Trim de videos con data-trim-* (evitar cortinillas negras)
+  // ---------------------------
+  document.addEventListener('loadedmetadata', (e) => {
+    const video = e.target;
+    if (!(video instanceof HTMLVideoElement)) return;
+    const start = parseFloat(video.getAttribute('data-trim-start') || '0');
+    if (start > 0) {
+      const seek = () => { try { video.currentTime = Math.min(start, Math.max(0, (video.duration || 0) - 0.1)); } catch (_) {} };
+      seek();
+      const onCanPlay = () => { seek(); video.removeEventListener('canplay', onCanPlay); };
+      video.addEventListener('canplay', onCanPlay, { once: true });
+      const onPlay = () => { seek(); video.removeEventListener('play', onPlay); };
+      video.addEventListener('play', onPlay, { once: true });
+    }
+  }, true);
+
+  document.addEventListener('timeupdate', (e) => {
+    const video = e.target;
+    if (!(video instanceof HTMLVideoElement)) return;
+    if (!video.loop) return; // solo aplicamos al loop
+    const endTrim = parseFloat(video.getAttribute('data-trim-end') || '0');
+    if (!endTrim || !isFinite(endTrim)) return;
+    const duration = video.duration || 0;
+    if (duration && video.currentTime >= duration - endTrim) {
+      const start = parseFloat(video.getAttribute('data-trim-start') || '0');
+      try { video.currentTime = Math.max(0, start); } catch(_) {}
+    }
+  }, true);
 
