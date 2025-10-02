@@ -366,6 +366,8 @@
         return;
       }
       
+      // Para otros enlaces (Sobre mí, Contáctame), cerrar menú inmediatamente
+      // y permitir navegación normal sin interferencias
       closeMobileMenu();
     });
   });
