@@ -502,13 +502,13 @@ button:hover,
   display: none !important;
   justify-content: center;
   align-items: center;
-  width: 2.8rem;
-  height: 2.8rem;
+  width: 3.2rem;
+  height: 3.2rem;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 50%;
   cursor: none;
-  padding: 0.4rem;
+  padding: 0.15rem;
   transition: all 0.3s ease;
   flex-shrink: 0;
   aspect-ratio: 1 / 1;

@@ -209,12 +209,13 @@
   
   // Función para configurar event listeners
   function setupEventListeners() {
-    // Event listeners para el chip (usando delegación de eventos)
+    // Event listeners para el chip completo (toggle automático)
     document.addEventListener('click', (e) => {
-      const clickedOption = e.target.closest('.lang-option');
-      if (clickedOption && !clickedOption.classList.contains('active')) {
+      const clickedChip = e.target.closest('.lang-chip');
+      if (clickedChip) {
         e.preventDefault();
-        const newLang = clickedOption.dataset.lang;
+        // Toggle automático entre idiomas
+        const newLang = currentLang === 'es' ? 'en' : 'es';
         changeLanguage(newLang);
       }
     });
