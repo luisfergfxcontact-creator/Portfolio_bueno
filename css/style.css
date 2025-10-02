@@ -1100,11 +1100,30 @@ button:hover,
   gap: 1rem;
 }
 
+.footer-logo-icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  cursor: none;
+  display: block;
+  margin: 0.5rem auto 0.5rem auto;
+}
+
+.footer-logo-icon:hover {
+  filter: drop-shadow(0 0 8px rgba(204, 255, 0, 0.5));
+  transform: scale(1.05);
+}
+
+.footer-brand {
+  text-align: center;
+}
+
 .footer-brand h3 {
   font-family: "Cal Sans", sans-serif;
   font-size: 1.2rem;
   color: #ccff00;
-  margin-bottom: 0.1rem;
+  margin: 0 0 0.5rem 0;
   font-weight: 700;
 }
 
@@ -1325,6 +1344,12 @@ button:hover,
 @media (max-width: 480px) {
   .compact-footer {
     padding: 0.75rem 1rem 0.5rem;
+  }
+  
+  .footer-logo-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    margin: 0.4rem auto 0.4rem auto;
   }
   
   .footer-brand h3 {

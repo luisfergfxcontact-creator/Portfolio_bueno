@@ -172,7 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const metaballColor = "#ccff00";
     let isHoveringInteractiveElement = false;
 
-     document.querySelectorAll("a, button, .clickable, .carousel-indicators .indicator, .lang-chip, .lang-option").forEach(element => {
+     document.querySelectorAll("a, button, .clickable, .carousel-indicators .indicator, .lang-chip, .lang-option, .footer-logo-icon").forEach(element => {
        element.addEventListener("mouseenter", () => isHoveringInteractiveElement = true);
        element.addEventListener("mouseleave", () => isHoveringInteractiveElement = false);
      });
