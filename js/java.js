@@ -808,18 +808,24 @@ document.addEventListener("DOMContentLoaded", () => {
     panel.style.minWidth = '260px';
     panel.style.maxWidth = 'min(92vw, 420px)';
     panel.style.overflow = 'visible';
-    // Forzar fondo y padding como el footer por si los estilos no aplican en esta página
+    // Forzar fondo y padding como el menú hamburguesa
     panel.style.background = 'rgba(8, 8, 8, 0.98)';
     panel.style.backdropFilter = 'blur(24px)';
     panel.style.border = '1px solid rgba(255, 255, 255, 0.14)';
     panel.style.borderRadius = '14px';
-    panel.style.padding = '12px 14px';
+    panel.style.padding = '1.25rem 1.25rem'; // Padding reducido para glow sutil
     panel.style.boxShadow = '0 16px 44px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(204, 255, 0, 0.08)';
+    panel.style.overflow = 'visible'; // Permitir que el glow se vea fuera del contenedor
     const section = document.createElement('div');
     section.className = 'menu-section';
     section.style.width = '100%';
+    section.style.overflow = 'visible'; // Permitir glow
     const list = document.createElement('ul');
     list.style.width = '100%';
+    list.style.listStyle = 'none';
+    list.style.margin = '0';
+    list.style.padding = '0';
+    list.style.overflow = 'visible'; // Permitir glow
 
     const items = [
       { label: 'Homepage', href: 'index.html' },
@@ -830,14 +836,60 @@ document.addEventListener("DOMContentLoaded", () => {
       { label: 'TFG', href: 'TFG.html' },
     ];
 
-    items.forEach(it => {
+    items.forEach((it, index) => {
       const li = document.createElement('li');
+      li.style.margin = '0';
+      li.style.padding = '0';
+      li.style.overflow = 'visible'; // Permitir glow
       const a = document.createElement('a');
       a.textContent = it.label;
       a.href = it.href;
       a.style.width = '100%';
-      a.style.maxWidth = '260px';
-      a.style.margin = '0.25rem auto';
+      a.style.display = 'block';
+      a.style.padding = '0.75rem 0.5rem'; // Padding reducido para glow sutil
+      a.style.margin = '0.1rem 0'; // Margen reducido
+      a.style.minHeight = '2rem'; // Altura reducida para glow sutil
+      a.style.color = 'rgba(255, 255, 255, 0.8)';
+      a.style.textDecoration = 'none';
+      a.style.borderRadius = '8px'; // Bordes redondeados para el glow
+      // Solo añadir borde si no es el último elemento
+      if (index < items.length - 1) {
+        a.style.borderBottom = '1px solid rgba(255, 255, 255, 0.1)';
+      }
+      a.style.transition = 'all 0.2s ease';
+      a.style.fontFamily = '"Cal Sans", sans-serif';
+      a.style.fontSize = '1rem';
+      a.style.fontWeight = '500';
+      a.style.cursor = 'none';
+      a.style.textAlign = 'left';
+      a.style.boxSizing = 'border-box';
+      
+      // Añadir eventos hover
+      a.addEventListener('mouseenter', () => {
+        a.style.color = '#ccff00';
+        a.style.backgroundColor = 'rgba(204, 255, 0, 0.03)';
+        a.style.border = '1px solid rgba(204, 255, 0, 0.08)';
+        a.style.boxShadow = '0 0 4px rgba(204, 255, 0, 0.1), 0 0 8px rgba(204, 255, 0, 0.05)';
+        a.style.transform = 'translateY(-0.5px)';
+      });
+      
+      a.addEventListener('mouseleave', () => {
+        a.style.color = 'rgba(255, 255, 255, 0.8)';
+        a.style.backgroundColor = 'transparent';
+        a.style.border = 'none';
+        a.style.boxShadow = 'none';
+        a.style.transform = 'translateY(0)';
+      });
+      
+      // Añadir al sistema de metaball cursor
+      a.addEventListener('mouseenter', () => {
+        window.isHoveringInteractiveElement = true;
+      });
+      
+      a.addEventListener('mouseleave', () => {
+        window.isHoveringInteractiveElement = false;
+      });
+      
       li.appendChild(a);
       list.appendChild(li);
     });
@@ -848,25 +900,42 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(headerMenu);
 
     function positionPanel() {
-      const rect = projectsLink.getBoundingClientRect();
-      const margin = 8;
-      let desiredLeft = rect.left + rect.width / 2;
-      // Medir ancho estimado
-      const panelWidth = Math.max(panel.offsetWidth || 260, 260);
-      const half = panelWidth / 2;
-      let transform = 'translate(-50%, 0)';
-      let left = desiredLeft;
-      if (desiredLeft - half < margin) {
-        left = margin; transform = 'translate(0, 0)';
-      } else if (desiredLeft + half > window.innerWidth - margin) {
-        left = window.innerWidth - margin; transform = 'translate(-100%, 0)';
+      // Detectar si estamos en móvil (menú hamburguesa activo)
+      const isMobile = window.innerWidth <= 500;
+      
+      if (isMobile) {
+        // Posicionamiento centrado como el menú hamburguesa
+        panel.style.position = 'fixed';
+        panel.style.top = '80px'; // Mismo top que el menú hamburguesa
+        panel.style.left = '50%';
+        panel.style.transform = 'translate(-50%, 8px)';
+        panel.style.minWidth = '260px';
+        panel.style.maxWidth = 'min(92vw, 420px)';
+        panel.style.zIndex = '999';
+        panel.style.pointerEvents = 'auto';
+      } else {
+        // Posicionamiento original para desktop
+        const rect = projectsLink.getBoundingClientRect();
+        const margin = 8;
+        let desiredLeft = rect.left + rect.width / 2;
+        // Medir ancho estimado
+        const panelWidth = Math.max(panel.offsetWidth || 260, 260);
+        const half = panelWidth / 2;
+        let transform = 'translate(-50%, 0)';
+        let left = desiredLeft;
+        if (desiredLeft - half < margin) {
+          left = margin; transform = 'translate(0, 0)';
+        } else if (desiredLeft + half > window.innerWidth - margin) {
+          left = window.innerWidth - margin; transform = 'translate(-100%, 0)';
+        }
+        panel.style.position = 'fixed';
+        panel.style.left = left + 'px';
+        panel.style.top = (rect.bottom + margin) + 'px';
+        panel.style.bottom = '';
+        panel.style.transform = transform;
+        panel.style.zIndex = '2147483646';
+        panel.style.pointerEvents = 'auto';
       }
-      panel.style.left = left + 'px';
-      panel.style.top = (rect.bottom + margin) + 'px';
-      panel.style.bottom = '';
-      panel.style.transform = transform;
-      panel.style.zIndex = '2147483646';
-      panel.style.pointerEvents = 'auto';
     }
 
     function showPanel(){
@@ -905,6 +974,13 @@ document.addEventListener("DOMContentLoaded", () => {
       if (anchor && (anchor === projectsLink || ((anchor.textContent||'').toLowerCase().includes('proyectos')))) {
         return; // el click es sobre el mismo botón proyectos
       }
+      
+      // También verificar si el click es en el menú móvil
+      const mobileMenuItem = e.target.closest('.mobile-menu-item');
+      if (mobileMenuItem && ((mobileMenuItem.textContent||'').toLowerCase().includes('proyectos'))) {
+        return; // el click es sobre el botón proyectos del menú móvil
+      }
+      
       hidePanel();
     }
 
@@ -924,6 +1000,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (isIndex) { hidePanel(); return; }
       // En páginas internas, actuamos como disparador del menú
       e.preventDefault();
+      console.log('Projects menu: Toggle requested, current state:', open);
       if (open) hidePanel(); else showPanel();
     });
   })();

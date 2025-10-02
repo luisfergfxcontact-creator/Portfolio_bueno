@@ -286,3 +286,100 @@
     getCurrentLanguage: () => currentLang
   };
 })();
+
+// === Mobile Menu System ===
+(() => {
+  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileMenuItems = document.querySelectorAll('.mobile-menu-item');
+  
+  if (!mobileMenuToggle || !mobileMenu) return;
+  
+  // Toggle menu
+  function toggleMobileMenu() {
+    const isActive = mobileMenuToggle.classList.contains('active');
+    
+    if (isActive) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  }
+  
+  function openMobileMenu() {
+    mobileMenuToggle.classList.add('active');
+    mobileMenu.classList.add('active');
+  }
+  
+  function closeMobileMenu() {
+    mobileMenuToggle.classList.remove('active');
+    mobileMenu.classList.remove('active');
+  }
+  
+  // Event listeners
+  mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+  
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (mobileMenu.classList.contains('active') && 
+        !mobileMenu.contains(e.target) && 
+        !mobileMenuToggle.contains(e.target)) {
+      closeMobileMenu();
+    }
+  });
+  
+  // Close menu when clicking on menu items
+  mobileMenuItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+      const txt = (item.textContent || '').trim().toLowerCase();
+      const href = (item.getAttribute('href') || '').toLowerCase();
+      const isProjects = txt.includes('proyectos') || href.includes('#proyectos');
+      const isIndex = window.location.pathname.endsWith("index.html") || window.location.pathname === "/";
+      
+      // Si es el enlace de proyectos en páginas no-home, activar el menú de proyectos
+      if (isProjects && !isIndex) {
+        e.preventDefault();
+        console.log('Mobile menu: Activando menú de proyectos...');
+        
+        // Esperar un poco para que el sistema de proyectos esté listo
+        setTimeout(() => {
+          // Buscar el enlace de proyectos del header desktop
+          const headerProjectsLink = document.querySelector('.main-nav .nav-links a[href="#proyectos"]');
+          console.log('Header projects link found:', headerProjectsLink);
+          if (headerProjectsLink) {
+            // Crear y disparar evento click en el enlace del header
+            const clickEvent = new MouseEvent('click', {
+              bubbles: true,
+              cancelable: true,
+              view: window
+            });
+            headerProjectsLink.dispatchEvent(clickEvent);
+            console.log('Click event dispatched to header projects link');
+          }
+        }, 100);
+        
+        // Cerrar el menú móvil después de un momento para que se vea el desplegable
+        setTimeout(() => {
+          closeMobileMenu();
+        }, 150);
+        
+        return;
+      }
+      
+      closeMobileMenu();
+    });
+  });
+  
+  // Close menu on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+      closeMobileMenu();
+    }
+  });
+  
+  // Add mobile menu items to interactive elements for metaball cursor
+  document.querySelectorAll(".mobile-menu-toggle, .mobile-menu-item").forEach(element => {
+    element.addEventListener("mouseenter", () => window.isHoveringInteractiveElement = true);
+    element.addEventListener("mouseleave", () => window.isHoveringInteractiveElement = false);
+  });
+})();

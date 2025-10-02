@@ -24,12 +24,36 @@
       </div>
       </h2>
     </a>
+    
+    <!-- Menú hamburguesa para móviles -->
+    <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Abrir menú">
+      <img class="logo-icon" src="media/logo.ico" alt="Logo LuisFer">
+    </button>
+    
+    <!-- Navegación desktop -->
     <ul class="nav-links">
       <li><a href="#proyectos" data-es="Proyectos" data-en="Projects">Proyectos</a></li>
       <li><a href="/index.html#sobre-mi" data-es="Sobre mí" data-en="About">Sobre mí</a></li>
       <li><a href="/index.html#contacto" class="cta" data-es="Contáctame" data-en="Contact">Contáctame</a></li>
     </ul>
+    
+    <div class="language-toggle">
+      <button id="lang-chip" class="lang-chip" aria-label="Cambiar idioma">
+        <span class="lang-option active" data-lang="es">ES</span>
+        <span class="lang-divider">|</span>
+        <span class="lang-option" data-lang="en">EN</span>
+      </button>
+    </div>
   </nav>
+  
+  <!-- Menú móvil desplegable -->
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-content">
+      <a href="#proyectos" class="mobile-menu-item" data-es="Proyectos" data-en="Projects">Proyectos</a>
+      <a href="/index.html#sobre-mi" class="mobile-menu-item" data-es="Sobre mí" data-en="About">Sobre mí</a>
+      <a href="/index.html#contacto" class="mobile-menu-item" data-es="Contáctame" data-en="Contact">Contáctame</a>
+    </div>
+  </div>
   <div id="simple-loader"></div>
 
   <canvas id="metaball-cursor"></canvas>
