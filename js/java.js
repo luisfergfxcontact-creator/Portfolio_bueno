@@ -864,11 +864,14 @@ document.addEventListener("DOMContentLoaded", () => {
       a.style.textAlign = 'left';
       a.style.boxSizing = 'border-box';
       
+      // Establecer borde transparente por defecto para evitar glitches
+      a.style.border = '1px solid transparent';
+      
       // Añadir eventos hover
       a.addEventListener('mouseenter', () => {
         a.style.color = '#ccff00';
         a.style.backgroundColor = 'rgba(204, 255, 0, 0.03)';
-        a.style.border = '1px solid rgba(204, 255, 0, 0.08)';
+        a.style.border = '1px solid #ccff00';
         a.style.boxShadow = '0 0 4px rgba(204, 255, 0, 0.1), 0 0 8px rgba(204, 255, 0, 0.05)';
         a.style.transform = 'translateY(-0.5px)';
       });
@@ -876,7 +879,7 @@ document.addEventListener("DOMContentLoaded", () => {
       a.addEventListener('mouseleave', () => {
         a.style.color = 'rgba(255, 255, 255, 0.8)';
         a.style.backgroundColor = 'transparent';
-        a.style.border = 'none';
+        a.style.border = '1px solid transparent';
         a.style.boxShadow = 'none';
         a.style.transform = 'translateY(0)';
       });
