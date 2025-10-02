@@ -172,10 +172,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const metaballColor = "#ccff00";
     let isHoveringInteractiveElement = false;
 
-    document.querySelectorAll("a, button, .clickable, .carousel-indicators .indicator").forEach(element => {
-      element.addEventListener("mouseenter", () => isHoveringInteractiveElement = true);
-      element.addEventListener("mouseleave", () => isHoveringInteractiveElement = false);
-    });
+     document.querySelectorAll("a, button, .clickable, .carousel-indicators .indicator, .lang-chip, .lang-option").forEach(element => {
+       element.addEventListener("mouseenter", () => isHoveringInteractiveElement = true);
+       element.addEventListener("mouseleave", () => isHoveringInteractiveElement = false);
+     });
 
     // También considerar el área clicable del carrusel de proyectos como interactiva
     const metaballClickableAreas = document.querySelectorAll('#proyectos-carousel .metaball-mask, #proyectos-carousel .metaball-deform, #proyectos-carousel .metaball-float');
@@ -1098,6 +1098,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 // (Revertido) Sin interceptor global de scroll
+
 
   // ---------------------------
   // Trim de videos con data-trim-* (evitar cortinillas negras)

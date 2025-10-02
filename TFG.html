@@ -25,9 +25,9 @@
       </h2>
     </a>
     <ul class="nav-links">
-      <li><a href="#proyectos">Proyectos</a></li>
-      <li><a href="/index.html#sobre-mi">Sobre mí</a></li>
-      <li><a href="/index.html#contacto" class="cta">Contáctame</a></li>
+      <li><a href="#proyectos" data-es="Proyectos" data-en="Projects">Proyectos</a></li>
+      <li><a href="/index.html#sobre-mi" data-es="Sobre mí" data-en="About">Sobre mí</a></li>
+      <li><a href="/index.html#contacto" class="cta" data-es="Contáctame" data-en="Contact">Contáctame</a></li>
     </ul>
   </nav>
   <div id="simple-loader"></div>
@@ -44,27 +44,27 @@
     <header class="marquee">
       <div class="marquee__inner">
         <div class="marquee__block">
-          <span>TFG · Minimal Motion</span><span class="dot">·</span>
-          <span>Sound/Music <span class="highlight">Studies</span></span><span class="dot">·</span>
+          <span data-es="TFG · Minimal Motion" data-en="TFG · Minimal Motion">TFG · Minimal Motion</span><span class="dot">·</span>
+          <span data-es="Sound/Music Studies" data-en="Sound/Music Studies">Sound/Music <span class="highlight">Studies</span></span><span class="dot">·</span>
         </div>
         <div class="marquee__block">
-          <span>TFG · Minimal Motion</span><span class="dot">·</span>
-          <span>Sound/Music <span class="highlight">Studies</span></span><span class="dot">·</span>
+          <span data-es="TFG · Minimal Motion" data-en="TFG · Minimal Motion">TFG · Minimal Motion</span><span class="dot">·</span>
+          <span data-es="Sound/Music Studies" data-en="Sound/Music Studies">Sound/Music <span class="highlight">Studies</span></span><span class="dot">·</span>
         </div>
       </div>
     </header>
     <div class="showreel-cta">
-      <button id="open-showreel" class="btn-primario btn-showreel">Ver video completo</button>
+      <button id="open-showreel" class="btn-primario btn-showreel" data-es="Ver video completo" data-en="Watch full video">Ver video completo</button>
     </div>
   </section>
   <!-- Modal video fullscreen reutilizando estilos globales -->
-  <div id="showreel-modal" class="showreel-modal" aria-hidden="true" role="dialog" aria-label="Video completo">
+  <div id="showreel-modal" class="showreel-modal" aria-hidden="true" role="dialog" aria-label="Video completo" data-aria-label-es="Video completo" data-aria-label-en="Full video">
     <div class="showreel-content">
       <video id="showreel-video" controls preload="auto" data-trim-start="2" data-trim-end="2">
         <source src="/media/CASE_STUDY_MINIMAL_MOTION.mp4" type="video/mp4" />
         Tu navegador no soporta la etiqueta de video.
       </video>
-      <button id="close-showreel" class="btn-close" aria-label="Cerrar video">✕</button>
+      <button id="close-showreel" class="btn-close" aria-label="Cerrar video" data-aria-label-es="Cerrar video" data-aria-label-en="Close video">✕</button>
     </div>
     <div class="showreel-backdrop"></div>
   </div>
@@ -72,11 +72,11 @@
   <div id="2">
     <section class="avioneta">
       <div class="txt1">
-        <h1>Minimal <span class="highlight">Motion</span></h1>
-        <p>
+        <h1 data-es="Minimal Motion" data-en="Minimal Motion">Minimal <span class="highlight">Motion</span></h1>
+        <p data-es="Estudios de movimiento mínimo con foco en timing, repetición y micro-variaciones. Generado y ejecutado en TouchDesigner." data-en="Minimal movement studies focused on timing, repetition and micro-variations. Generated and executed in TouchDesigner.">
           Estudios de movimiento mínimo con foco en timing, repetición y micro-variaciones. Generado y ejecutado en TouchDesigner.
         </p>
-        <p>
+        <p data-es="Se trabaja con bucles cortos y patrones geométricos para explorar ritmo, pausa y acento sin depender de grandes desplazamientos. La iluminación y el contraste de valores ayudan a dirigir la mirada, mientras que pequeñas variaciones evitan la sensación de loop mecánico." data-en="Working with short loops and geometric patterns to explore rhythm, pause and accent without relying on large displacements. Lighting and value contrast help direct the gaze, while small variations avoid the feeling of mechanical looping.">
           Se trabaja con bucles cortos y patrones geométricos para explorar ritmo, pausa y acento sin
           depender de grandes desplazamientos. La iluminación y el contraste de valores ayudan a dirigir
           la mirada, mientras que pequeñas variaciones evitan la sensación de loop mecánico.
@@ -101,11 +101,11 @@
   <div id="3">
     <section class="canoa">
       <div class="txt1">
-        <h1>Sound <span class="highlight">Studies</span></h1>
-        <p>
+        <h1 data-es="Sound Studies" data-en="Sound Studies">Sound <span class="highlight">Studies</span></h1>
+        <p data-es="Visuales reactivos a sonido: pruebas con FFT y bandas, explorando forma, repetición y contraste." data-en="Sound-reactive visuals: FFT and band tests, exploring form, repetition and contrast.">
           Visuales reactivos a sonido: pruebas con FFT y bandas, explorando forma, repetición y contraste.
         </p>
-        <p>
+        <p data-es="Se mapean distintas bandas de frecuencia a parámetros visuales (escala, rotación, densidad), cuidando la lectura para que graves, medios y agudos tengan comportamientos diferenciados. El objetivo es lograr coherencia audiovisual sin caer en ruido visual." data-en="Different frequency bands are mapped to visual parameters (scale, rotation, density), taking care of readability so that bass, mids and treble have differentiated behaviors. The goal is to achieve audiovisual coherence without falling into visual noise.">
           Se mapean distintas bandas de frecuencia a parámetros visuales (escala, rotación, densidad),
           cuidando la lectura para que graves, medios y agudos tengan comportamientos diferenciados.
           El objetivo es lograr coherencia audiovisual sin caer en ruido visual.
@@ -140,11 +140,11 @@
   <div id="4">
     <section class="cascos">
       <div class="txt1">
-        <h1>Music <span class="highlight">Studies</span></h1>
-        <p>
+        <h1 data-es="Music Studies" data-en="Music Studies">Music <span class="highlight">Studies</span></h1>
+        <p data-es="Experimentos de visualización musical: líneas, generativos y compases; enfoque en composición y lectura rítmica." data-en="Musical visualization experiments: lines, generatives and beats; focus on composition and rhythmic reading.">
           Experimentos de visualización musical: líneas, generativos y compases; enfoque en composición y lectura rítmica.
         </p>
-        <p>
+        <p data-es="Se ensayan compases simples y compuestos con motivos gráficos que refuerzan estructura y acentos. Las decisiones de color y espaciamiento buscan claridad en la métrica, manteniendo un lenguaje minimalista que funcione en formatos cortos para redes." data-en="Simple and compound beats are tested with graphic motifs that reinforce structure and accents. Color and spacing decisions seek clarity in metrics, maintaining a minimalist language that works in short formats for social media.">
           Se ensayan compases simples y compuestos con motivos gráficos que refuerzan estructura y acentos.
           Las decisiones de color y espaciamiento buscan claridad en la métrica, manteniendo un lenguaje
           minimalista que funcione en formatos cortos para redes.
@@ -224,6 +224,7 @@
   </div>
 
   <script src="js/java.js?v=bootstrap1"></script>
+  <script src="js/language-system.js"></script>
 </body>
 </html>
 
