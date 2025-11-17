@@ -13,8 +13,10 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/media/logo.png">
   <meta name="theme-color" content="#000000">
 
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/output.css" />
+  <link rel="preload" href="css/style.min.css" as="style">
+  <link rel="preload" href="css/output.min.css" as="style">
+  <link rel="stylesheet" href="css/style.min.css" />
+  <link rel="stylesheet" href="css/output.min.css" />
   
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -166,10 +168,10 @@
     <!-- Navegación -->
     <div class="carousel-nav">
       <button class="prev">
-        <span class="icon"><img src="/media/flecha.svg" alt="Prev" /></span>
+        <span class="icon"><img loading="lazy" decoding="async" src="/media/flecha.svg" alt="Prev" /></span>
       </button>
       <button class="next">
-        <span class="icon"><img src="/media/flecha.svg" alt="Next" /></span>
+        <span class="icon"><img loading="lazy" decoding="async" src="/media/flecha.svg" alt="Next" /></span>
       </button>
     </div>
   </section>
@@ -233,7 +235,7 @@
     
     <!-- Menú hamburguesa para móviles -->
     <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Abrir menú">
-      <img class="logo-icon" src="media/logo.ico" alt="Logo LuisFer">
+      <img loading="lazy" decoding="async" class="logo-icon" src="media/logo.ico" alt="Logo LuisFer">
     </button>
     
     <!-- Navegación desktop -->
@@ -304,7 +306,7 @@
     <div class="footer-main">
       <div class="footer-brand">
         <h3>LuisFer.</h3>
-        <img src="media/logo.ico" alt="Logo LuisFer" class="footer-logo-icon">
+      <img loading="lazy" decoding="async" src="media/logo.ico" alt="Logo LuisFer" class="footer-logo-icon">
         <p>3D Generalist & Graphic Designer</p>
       </div>
       
@@ -368,8 +370,8 @@
   </div>
 
 
-  <script src="js/java.js?v=bootstrap1"></script>
-  <script src="js/language-system.js"></script>
+  <script src="js/java.min.js?v=bootstrap1" defer></script>
+  <script src="js/language-system.min.js" defer></script>
  
 </body>
 </html>

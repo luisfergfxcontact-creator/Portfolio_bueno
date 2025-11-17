@@ -7,9 +7,12 @@
   <title>TFG - Minimal Motion & Sound/Music Studies</title>
 
   <link rel="icon" href="/media/logo.png" type="image/x-icon" sizes="80x80">
-  <link rel="stylesheet" href="/css/TFG.css" />
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/output.css" />
+  <link rel="preload" href="/css/TFG.min.css" as="style">
+  <link rel="preload" href="css/style.min.css" as="style">
+  <link rel="preload" href="css/output.min.css" as="style">
+  <link rel="stylesheet" href="/css/TFG.min.css" />
+  <link rel="stylesheet" href="css/style.min.css" />
+  <link rel="stylesheet" href="css/output.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
@@ -27,7 +30,7 @@
     
     <!-- Menú hamburguesa para móviles -->
     <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Abrir menú">
-      <img class="logo-icon" src="media/logo.ico" alt="Logo LuisFer">
+      <img loading="lazy" decoding="async" class="logo-icon" src="media/logo.ico" alt="Logo LuisFer">
     </button>
     
     <!-- Navegación desktop -->
@@ -207,7 +210,7 @@
     <div class="footer-main">
       <div class="footer-brand">
         <h3>LuisFer.</h3>
-        <img src="media/logo.ico" alt="Logo LuisFer" class="footer-logo-icon">
+        <img loading="lazy" decoding="async" src="media/logo.ico" alt="Logo LuisFer" class="footer-logo-icon">
         <p>3D Generalist & Graphic Designer</p>
       </div>
       <div class="footer-menu">
@@ -248,8 +251,8 @@
     </div>
   </div>
 
-  <script src="js/java.js?v=bootstrap1"></script>
-  <script src="js/language-system.js"></script>
+  <script src="js/java.min.js?v=bootstrap1" defer></script>
+  <script src="js/language-system.min.js" defer></script>
 </body>
 </html>
 
