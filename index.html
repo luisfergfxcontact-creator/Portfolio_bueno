@@ -15,6 +15,7 @@
 
   <link rel="preload" href="css/style.min.css" as="style">
   <link rel="preload" href="css/output.min.css" as="style">
+  <link rel="preload" href="/media/Showreel_web.mp4" as="video" type="video/mp4">
   <link rel="stylesheet" href="css/style.min.css" />
   <link rel="stylesheet" href="css/output.min.css" />
   
@@ -49,7 +50,7 @@
 
   <!-- Intro con video -->
   <section id="intro-video">
-    <video autoplay muted loop playsinline>
+    <video id="intro-bg-video" autoplay muted loop playsinline preload="auto" poster="/media/frame1.jpg">
       <source src="/media/Showreel_web.mp4" type="video/mp4" />
       Tu navegador no soporta la etiqueta de video.
     </video>

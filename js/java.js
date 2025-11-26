@@ -1210,3 +1210,35 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }, true);
 
+  // ---------------------------
+  // Optimización del video de fondo de la página principal
+  // ---------------------------
+  (() => {
+    const introBgVideo = document.getElementById('intro-bg-video');
+    if (!introBgVideo) return;
+
+    // Intentar reproducir tan pronto como sea posible
+    function attemptPlay() {
+      introBgVideo.play().catch(err => {
+        console.log('Esperando interacción del usuario para reproducir video...');
+      });
+    }
+
+    // Intentar reproducir en diferentes eventos de preparación
+    introBgVideo.addEventListener('loadeddata', attemptPlay, { once: true });
+    introBgVideo.addEventListener('canplay', attemptPlay, { once: true });
+    introBgVideo.addEventListener('canplaythrough', attemptPlay, { once: true });
+
+    // Si el video ya está listo cuando se ejecuta el script
+    if (introBgVideo.readyState >= 3) {
+      attemptPlay();
+    }
+
+    // Fallback: Si después de 500ms aún no se está reproduciendo, intentar de nuevo
+    setTimeout(() => {
+      if (introBgVideo.paused) {
+        attemptPlay();
+      }
+    }, 500);
+  })();
+
